@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LuxStay - Premium Hotel Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .hotel-image {
+        transition: transform 0.3s ease;
+        cursor: zoom-in;
+      }
+      .hotel-image.zoomed {
+        transform: scale(1.5);
+        z-index: 100;
+        cursor: zoom-out;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      }
+      .image-gallery {
+        scrollbar-width: thin;
+        scrollbar-color: #888 transparent;
+      }
+      .image-gallery::-webkit-scrollbar {
+        height: 8px;
+      }
+      .image-gallery::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .image-gallery::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 20px;
+      }
+      .booking-form {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+      .hotel-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+      .amenity-icon {
+        width: 24px;
+        height: 24px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 8px;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex items-center">
+            <div class="flex-shrink-0 flex items-center">
+              <i class="fas fa-hotel text-indigo-600 text-2xl mr-2"></i>
+              <span class="text-xl font-bold text-indigo-600">LuxStay</span>
+            </div>
+            <div class="hidden md:ml-10 md:flex md:space-x-8">
+              <a
+                href="#"
+                class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >Home</a
+              >
+              <a
+                href="#"
+                class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >Hotels</a
+              >
+              <a
+                href="#"
+                class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >Destinations</a
+              >
+              <a
+                href="#"
+                class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >Deals</a
+              >
+            </div>
+          </div>
+          <div class="hidden md:ml-6 md:flex md:items-center">
+            <button
+              class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+            >
+              Sign In
+            </button>
+          </div>
+          <div class="-mr-2 flex items-center md:hidden">
+            <button
+              type="button"
+              class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+            >
+              <span class="sr-only">Open main menu</span>
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative bg-indigo-800">
+      <div class="absolute inset-0">
+        <img
+          class="w-full h-full object-cover opacity-30"
+          src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+          alt="Luxury hotel"
+        />
+      </div>
+      <div
+        class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8"
+      >
+        <h1
+          class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl"
+        >
+          Find Your Perfect Stay
+        </h1>
+        <p class="mt-6 text-xl text-indigo-100 max-w-3xl">
+          Discover luxury hotels, resorts, and unique accommodations around the
+          world at the best prices.
+        </p>
+        <div class="mt-10">
+          <div class="bg-white rounded-lg shadow-xl p-6 max-w-4xl">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div class="col-span-1 md:col-span-2">
+                <label
+                  for="destination"
+                  class="block text-sm font-medium text-gray-700"
+                  >Destination</label
+                >
+                <div class="mt-1 relative rounded-md shadow-sm">
+                  <input
+                    type="text"
+                    id="destination"
+                    class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-4 pr-10 py-3 sm:text-sm border-gray-300 rounded-md"
+                    placeholder="City, hotel, or region"
+                  />
+                  <div
+                    class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
+                  >
+                    <i class="fas fa-map-marker-alt text-gray-400"></i>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label
+                  for="check-in"
+                  class="block text-sm font-medium text-gray-700"
+                  >Check-in</label
+                >
+                <div class="mt-1 relative rounded-md shadow-sm">
+                  <input
+                    type="date"
+                    id="check-in"
+                    class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-4 pr-10 py-3 sm:text-sm border-gray-300 rounded-md"
+                  />
+                </div>
+              </div>
+              <div>
+                <label
+                  for="check-out"
+                  class="block text-sm font-medium text-gray-700"
+                  >Check-out</label
+                >
+                <div class="mt-1 relative rounded-md shadow-sm">
+                  <input
+                    type="date"
+                    id="check-out"
+                    class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-4 pr-10 py-3 sm:text-sm border-gray-300 rounded-md"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label
+                  for="guests"
+                  class="block text-sm font-medium text-gray-700"
+                  >Guests</label
+                >
+                <select
+                  id="guests"
+                  class="mt-1 block w-full pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                >
+                  <option>1 adult</option>
+                  <option>2 adults</option>
+                  <option>3 adults</option>
+                  <option>Family (2 adults + 2 children)</option>
+                </select>
+              </div>
+              <div>
+                <label
+                  for="rooms"
+                  class="block text-sm font-medium text-gray-700"
+                  >Rooms</label
+                >
+                <select
+                  id="rooms"
+                  class="mt-1 block w-full pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                >
+                  <option>1 room</option>
+                  <option>2 rooms</option>
+                  <option>3 rooms</option>
+                  <option>4+ rooms</option>
+                </select>
+              </div>
+              <div class="flex items-end">
+                <button
+                  type="submit"
+                  class="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Search Hotels
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Hotels -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="text-center mb-12">
+        <h2
+          class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl"
+        >
+          Featured Hotels
+        </h2>
+        <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+          Handpicked luxury accommodations for your next getaway
+        </p>
+      </div>
+
+      <!-- Hotel Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Hotel 1 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+              alt="Grand Horizon Resort"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-indigo-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              5% OFF
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Grand Horizon Resort
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Bali, Indonesia</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.8</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-swimming-pool amenity-icon"></i>
+                  <span>Pool</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-utensils amenity-icon"></i>
+                  <span>Restaurant</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-gray-500 line-through">$320</span>
+                <span class="ml-2 text-xl font-bold text-gray-900">$299</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+              <button
+                class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+              >
+                Book Now
+              </button>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+62 361 1234567</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>info@grandhorizon.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 2 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+              <button
+                class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+              >
+                Book Now
+              </button>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 3 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+              alt="Mountain View Lodge"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-green-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Eco-Friendly
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Mountain View Lodge
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm"
+                    >Swiss Alps, Switzerland</span
+                  >
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.7</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-fire amenity-icon"></i>
+                  <span>Fireplace</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-skiing amenity-icon"></i>
+                  <span>Ski Access</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-paw amenity-icon"></i>
+                  <span>Pet Friendly</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$275</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+              <button
+                class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+              >
+                Book Now
+              </button>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+41 33 1234567</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>bookings@mountainview.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <button
+          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          View All Hotels
+          <i class="fas fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="bg-indigo-50 py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2
+            class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl"
+          >
+            What Our Guests Say
+          </h2>
+          <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+            Don't just take our word for it - hear from our satisfied guests
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white p-8 rounded-lg shadow-sm">
+            <div class="flex items-center mb-4">
+              <div class="flex-shrink-0">
+                <img
+                  class="h-10 w-10 rounded-full"
+                  src="https://randomuser.me/api/portraits/women/32.jpg"
+                  alt="Sarah Johnson"
+                />
+              </div>
+              <div class="ml-3">
+                <p class="text-sm font-medium text-gray-900">Sarah Johnson</p>
+                <div class="flex">
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-600">
+              "The Grand Horizon Resort exceeded all our expectations. The
+              service was impeccable, the rooms were spacious and clean, and the
+              location was perfect. We'll definitely be back!"
+            </p>
+          </div>
+
+          <div class="bg-white p-8 rounded-lg shadow-sm">
+            <div class="flex items-center mb-4">
+              <div class="flex-shrink-0">
+                <img
+                  class="h-10 w-10 rounded-full"
+                  src="https://randomuser.me/api/portraits/men/43.jpg"
+                  alt="Michael Chen"
+                />
+              </div>
+              <div class="ml-3">
+                <p class="text-sm font-medium text-gray-900">Michael Chen</p>
+                <div class="flex">
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-600">
+              "Royal Palms Hotel made our anniversary trip unforgettable. The
+              staff went above and beyond to make our stay special. The ocean
+              view from our balcony was breathtaking."
+            </p>
+          </div>
+
+          <div class="bg-white p-8 rounded-lg shadow-sm">
+            <div class="flex items-center mb-4">
+              <div class="flex-shrink-0">
+                <img
+                  class="h-10 w-10 rounded-full"
+                  src="https://randomuser.me/api/portraits/women/65.jpg"
+                  alt="Emma Rodriguez"
+                />
+              </div>
+              <div class="ml-3">
+                <p class="text-sm font-medium text-gray-900">Emma Rodriguez</p>
+                <div class="flex">
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-600">
+              "Mountain View Lodge was the perfect winter getaway. Cozy rooms,
+              delicious food, and direct access to ski slopes. The eco-friendly
+              approach was a big plus for us nature lovers."
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="bg-white py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <h2
+            class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl"
+          >
+            Stay Updated
+          </h2>
+          <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+            Subscribe to our newsletter for exclusive deals and travel
+            inspiration
+          </p>
+
+          <div class="mt-8 max-w-md mx-auto">
+            <form class="sm:flex">
+              <label for="email-address" class="sr-only">Email address</label>
+              <input
+                id="email-address"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                class="w-full px-5 py-3 border border-gray-300 shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs rounded-md"
+                placeholder="Enter your email"
+              />
+              <div
+                class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0"
+              >
+                <button
+                  type="submit"
+                  class="w-full flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Subscribe
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800">
+      <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div>
+            <h3
+              class="text-white text-sm font-semibold tracking-wider uppercase"
+            >
+              Company
+            </h3>
+            <ul class="mt-4 space-y-4">
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white text-base"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white text-base"
+                  >Careers</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white text-base"
+                  >Press</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white text-base"
+                  >Blog</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3
+              class="text-white text-sm font-semibold tracking-wider uppercase"
+            >
+              Support
+            </h3>
+            <ul class="mt-4 space-y-4">
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white text-base"
+                  >Help Center</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white text-base"
+                  >Safety</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white text-base"
+                  >Cancellation Policy</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white text-base"
+                  >Report Issue</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3
+              class="text-white text-sm font-semibold tracking-wider uppercase"
+            >
+              Legal
+            </h3>
+            <ul class="mt-4 space-y-4">
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white text-base"
+                  >Terms of Service</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white text-base"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white text-base"
+                  >Cookie Policy</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-300 hover:text-white text-base"
+                  >GDPR</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3
+              class="text-white text-sm font-semibold tracking-wider uppercase"
+            >
+              Contact Us
+            </h3>
+            <ul class="mt-4 space-y-4">
+              <li class="flex items-center">
+                <i class="fas fa-map-marker-alt text-gray-300 mr-2"></i>
+                <span class="text-gray-300"
+                  >123 Luxury Street, Suite 100, New York, NY 10001</span
+                >
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-phone-alt text-gray-300 mr-2"></i>
+                <span class="text-gray-300">+1 (555) 123-4567</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-envelope text-gray-300 mr-2"></i>
+                <span class="text-gray-300">hello@luxstay.com</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between"
+        >
+          <div class="flex space-x-6 md:order-2">
+            <a href="#" class="text-gray-400 hover:text-white">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+          <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
+            &copy; 2023 LuxStay. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Image zoom functionality
+      function toggleZoom(image) {
+        if (image.classList.contains("zoomed")) {
+          image.classList.remove("zoomed");
+        } else {
+          // First remove zoom from any other images
+          document.querySelectorAll(".hotel-image.zoomed").forEach((img) => {
+            img.classList.remove("zoomed");
+          });
+          // Then zoom the clicked image
+          image.classList.add("zoomed");
+        }
+      }
+
+      // Close zoom when clicking outside
+      document.addEventListener("click", function (e) {
+        if (!e.target.classList.contains("hotel-image")) {
+          document.querySelectorAll(".hotel-image.zoomed").forEach((img) => {
+            img.classList.remove("zoomed");
+          });
+        }
+      });
+
+      // Simple form validation for newsletter
+      document.querySelector("form").addEventListener("submit", function (e) {
+        const email = document.getElementById("email-address").value;
+        if (!email.includes("@") || !email.includes(".")) {
+          e.preventDefault();
+          alert("Please enter a valid email address");
+        } else {
+          alert("Thank you for subscribing!");
+        }
+      });
+    </script>
+  </body>
+</html>
