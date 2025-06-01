@@ -5,19 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LuxStay - Premium Hotel Booking</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="script.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <style>
-      .hotel-image {
-        transition: transform 0.3s ease;
-        cursor: zoom-in;
-      }
+     
       .hotel-image.zoomed {
         transform: scale(1.5);
         z-index: 100;
-        cursor: zoom-out;
+        cursor: pointer;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
       }
       .image-gallery {
@@ -117,6 +115,15 @@
         </p>
       </div>
 
+      <!-- Zoom Modal (Place this at the end of body, outside hotel cards container) -->
+<div id="zoomModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-80">
+  <span onclick="closeZoom()" class="absolute top-4 right-6 text-white text-4xl cursor-pointer select-none">&times;</span>
+  <img id="zoomedImg" src="" class="max-w-full max-h-full rounded-lg shadow-lg" />
+</div>
+
+
+
+
       <!-- Hotel Cards -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Hotel 1 -->
@@ -201,11 +208,7 @@
                 <span class="ml-2 text-xl font-bold text-gray-900">$299</span>
                 <span class="text-gray-500 text-sm">/night</span>
               </div>
-              <button
-                class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
-              >
-                Book Now
-              </button>
+              
             </div>
 
             <div class="mt-6 pt-4 border-t border-gray-200">
@@ -229,7 +232,7 @@
         >
           <div class="relative">
             <img
-              src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+              src="../Public/room/room19.jpg"
               alt="Royal Palms Hotel"
               class="w-full h-64 object-cover hotel-image"
               onclick="toggleZoom(this)"
@@ -304,11 +307,7 @@
                 <span class="text-xl font-bold text-gray-900">$349</span>
                 <span class="text-gray-500 text-sm">/night</span>
               </div>
-              <button
-                class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
-              >
-                Book Now
-              </button>
+            
             </div>
 
             <div class="mt-6 pt-4 border-t border-gray-200">
@@ -332,7 +331,2091 @@
         >
           <div class="relative">
             <img
-              src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+              src="../Public/room/room1.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 4 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room2.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 5 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room3.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+            
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 6 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room4.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+           
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 7 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room5.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+              </button>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 8 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room6.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 9 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room7.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 10 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/arman.jpg"
+              class="w-full h-64 object-cover hotel-image"
+             onclick="zoomImage(this.src)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">Armani Hotel</h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Uae, Dubai</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <!-- Image Gallery -->
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="../Public/room/arman1.jpg"
+                class="h-20 w-20 object-cover rounded hotel-image cursor-pointer"
+                onclick="zoomImage(this.src)"
+              />
+              <img
+                src="../Public/room/arman2.jpg"
+                class="h-20 w-20 object-cover rounded hotel-image cursor-pointer"
+                 onclick="zoomImage(this.src)"
+              />
+              <img
+                src="../Public/room/arman3.jpg"
+                class="h-20 w-20 object-cover rounded hotel-image cursor-pointer"
+                onclick="zoomImage(this.src)"
+              />
+              <img
+                src="../Public/room/arman4.jpg"
+                class="h-20 w-20 object-cover rounded hotel-image cursor-pointer"
+               onclick="zoomImage(this.src)"
+              />
+            </div>
+
+            <!-- Zoom Modal -->
+<div id="zoomModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000;">
+  <span onclick="closeZoom()" style="position:absolute; top:20px; right:30px; color:white; font-size:30px; cursor:pointer;">&times;</span>
+  <img id="zoomedImg" src="" style="max-height:90%; max-width:90%; border-radius:8px;" />
+</div>
+           
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 11 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room9.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+            
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 12 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room10.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+            
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 13 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room11.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+            
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 14 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room12.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 15 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room13.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 16 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room14.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 17 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room6.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 18 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room16.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 19 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room17.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 20 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room18.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 21 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room19.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 22 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room20.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 23 -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room17.jpg"
+              alt="Royal Palms Hotel"
+              class="w-full h-64 object-cover hotel-image"
+              onclick="toggleZoom(this)"
+            />
+            <div
+              class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg"
+            >
+              Popular
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">
+                  Royal Palms Hotel
+                </h3>
+                <div class="flex items-center mt-1">
+                  <i
+                    class="fas fa-map-marker-alt text-gray-500 text-sm mr-1"
+                  ></i>
+                  <span class="text-gray-600 text-sm">Miami, USA</span>
+                </div>
+              </div>
+              <div class="flex items-center bg-indigo-50 px-2 py-1 rounded">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="font-bold text-gray-800">4.9</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex overflow-x-auto image-gallery space-x-2 pb-2">
+              <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1561501878-aabd62634533?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+                class="h-20 w-20 object-cover rounded hotel-image"
+                onclick="toggleZoom(this)"
+              />
+            </div>
+
+            <div class="mt-4">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-wifi amenity-icon"></i>
+                  <span>Free WiFi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-spa amenity-icon"></i>
+                  <span>Spa</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-dumbbell amenity-icon"></i>
+                  <span>Gym</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center">
+              <div>
+                <span class="text-xl font-bold text-gray-900">$349</span>
+                <span class="text-gray-500 text-sm">/night</span>
+              </div>
+             
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-phone-alt mr-2"></i>
+                  <span>+1 305 9876543</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <span>reservations@royalpalms.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel 24  -->
+        <div
+          class="bg-white rounded-lg overflow-hidden shadow-md hotel-card transition duration-300"
+        >
+          <div class="relative">
+            <img
+              src="../Public/room/room16.jpg"
               alt="Mountain View Lodge"
               class="w-full h-64 object-cover hotel-image"
               onclick="toggleZoom(this)"
@@ -409,11 +2492,7 @@
                 <span class="text-xl font-bold text-gray-900">$275</span>
                 <span class="text-gray-500 text-sm">/night</span>
               </div>
-              <button
-                class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
-              >
-                Book Now
-              </button>
+             
             </div>
 
             <div class="mt-6 pt-4 border-t border-gray-200">
@@ -434,11 +2513,11 @@
 
       <div class="mt-12 text-center">
         <button
-          onclick="window.location.href='all-hotels.html'"
+          onclick="window.location.href='index.html'"
           class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
-          View All Hotels
-          <i class="fas fa-arrow-right ml-2"></i>
+          <i class="fas fa-arrow-left mr-2"></i>
+          Go back
         </button>
       </div>
     </div>
