@@ -6,13 +6,13 @@
   <title>LuxStay Hotel</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="h-screen w-full">
+<body class="h-screen w-full overflow-x-hidden">
 
 <!-- Navbar -->
 <nav class="text-2xl p-1 bg-white text-gray-500 relative z-10">
   <div class="flex justify-between items-center p-2">
     <div class="md:ml-[5%] uppercase text-gray-700 font-bold">Logo</div>
-    <ul class="flex space-x-20 px-[5%]">
+    <ul class="flex flex-wrap gap-6 md:space-x-20 px-4 md:px-[5%]">
       <li>Home</li>
       <li>About</li>
       <li>Rooms</li>
@@ -27,7 +27,7 @@
 </nav>
 
 <!-- Hero -->
-<div class="relative h-[95vh] bg-cover bg-center" style="background-image: url('images/homeimg.jpg');">
+<div class="relative h-[95vh]  bg-cover bg-center" style="background-image: url('images/homeimg.jpg');">
   <div class="absolute inset-0 bg-black bg-opacity-50"></div>
   <div class="relative z-10 flex justify-center items-center h-[80vh] text-center text-white">
     <div>
@@ -62,7 +62,7 @@
       <input type="date" id="check-out" class="border p-2 rounded w-48">
     </div>
     <div class="flex items-end">
-      <button class="bg-[#FFD23E] text-white px-6 py-2 rounded hover:bg-yellow-500 transition">
+      <button class="bg-amber-400 text-white px-6 py-2 rounded hover:bg-yellow-500 transition">
         Book Now
       </button>
     </div>
@@ -70,7 +70,41 @@
 </div>
 
 <!-- Rooms Container -->
-<div id="roomsContainer" class="flex flex-col items-center gap-10 my-10"></div>
+<div id="roomsContainer" class="flex flex-col  items-center gap-10 my-10"></div>
+
+<div class="flex justify-center mb-[5%] mt-[5%]">
+  <button class="bg-amber-400 text-white px-5 py-2 rounded">View All Rooms</button>
+</div>
+
+<div class="bg-gray-100 p-10">
+  <div class="text-center text-amber-300 ">
+    <h1 class="text-4xl font-bold mb-2">Facilities & Services</h1>
+    <!-- Try changing w-1/4, w-1/3, w-1/2, or w-[250px] -->
+    <hr class="w-1/5 mx-auto border-t-5 border-amber-400">
+  </div>
+  
+  
+  <div id="facilitiesContainer" class="grid grid-cols-1 md:grid-cols-3 gap-8 px-10 my-10"></div>
+</div>
+
+
+<div class="py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl text-amber-400 font-extrabold tracking-tight sm:text-4xl">
+        What Our Guests Say
+      </h2>
+      <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+        Don't just take our word for it - hear from our satisfied guests
+      </p>
+    </div>
+
+    <!-- Dynamic Guest Testimonials -->
+    <div id="guestContainer" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
+  </div>
+</div>
+
+
 
 
 <footer class="bg-gray-800">
@@ -217,8 +251,9 @@
   </footer>
 
 
+
 <script>
-  const rooms = [
+ const rooms = [
     {
       name: "Deluxe Room",
       price: 320,
@@ -248,30 +283,63 @@
         { img: "images/shower.png", text: "Shower" },
         { img: "images/croissant.png", text: "Breakfast" }
       ]
-    }
+    },
+    {
+      name: "Standard Room",
+      price: 150,
+      rating: "4.8 ⭐",
+      description: "Luxury suite with private pool, spa access, and city view.",
+      img: "https://media.istockphoto.com/id/180451126/photo/hotel-standard-room.jpg?s=612x612&w=0&k=20&c=iu4nL4_zUf7AI6iL74zvpqHFg-0AFR3bdTP68WJf5_g=",
+      features: [
+        { img: "images/user (2).png", text: "4 Persons" },
+        { img: "images/wi-fi.png", text: "Free WiFi" },
+        { img: "images/bed.png", text: "King Size Bed" },
+        { img: "images/tape-measure.png", text: "38 Sqm" },
+        { img: "images/shower.png", text: "Shower" },
+        { img: "images/croissant.png", text: "Breakfast" }
+      ]
+    },
   ];
 
   const container = document.getElementById("roomsContainer");
 
   rooms.forEach(room => {
-    // Create card wrapper
+    // Card wrapper responsive flex
     const card = document.createElement("div");
-    card.className = "relative flex w-[80%] mt-2 rounded-lg overflow-hidden";
+    card.className = "relative flex flex-col md:flex-row w-full md:w-[80%] mt-2 rounded-lg overflow-hidden";
 
     // Left Image
     const left = document.createElement("div");
-    left.className = "w-1/2";
+    left.className = "w-full md:w-1/2";
     const img = document.createElement("img");
     img.src = room.img;
     img.alt = room.name;
-    img.className = "h-[50vh] w-full object-cover";
+    img.className = "h-[40vh] md:h-[50vh] w-full object-cover";
     left.appendChild(img);
 
     // Right Content
     const right = document.createElement("div");
-    right.className = "w-1/2 bg-gray-100 h-[50%] mt-[3%] p-6 relative -left-10 rounded-lg shadow-xl overflow-y-auto";
+    right.className = `
+  w-full 
+  md:w-1/2 
+  bg-gray-100 
+  
+  p-6 
+  h-[50%]          /* 50% height on mobile */
+  sm:h-auto        /* auto height on sm and above */
+  md:h-[300px]     /* fixed height on md and above if needed */
+  md:mt-0          /* reset margin top */
+  md:self-center   /* vertically center next to image */
+  relative 
+  rounded-lg 
+  shadow-xl
+  md:left-[-2%]
+  border
+`;
 
-    // Header
+
+
+
     right.innerHTML = `
       <div class="flex justify-between items-center mb-4">
         <div>
@@ -284,9 +352,9 @@
         </div>
       </div>
       <p class="text-gray-600 leading-relaxed mb-4">${room.description}</p>
-      <div class="grid grid-cols-3 gap-4 mt-6" id="features-${room.name.replace(/\s+/g, '')}"></div>
-      <div class="flex gap-4 mt-6">
-        <button class="bg-[#FFD23E] text-white px-6 py-2 rounded hover:bg-yellow-500 transition">Book Now</button>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-6" id="features-${room.name.replace(/\s+/g, '')}"></div>
+      <div class="flex flex-wrap gap-4 mt-6">
+        <button class="bg-amber-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition">Book Now</button>
         <button class="border border-yellow-500 text-yellow-500 px-6 py-2 rounded hover:bg-yellow-600 hover:text-white transition">See More</button>
       </div>
     `;
@@ -304,6 +372,93 @@
     card.appendChild(right);
     container.appendChild(card);
   });
+  const facilities = [
+  {
+    title: "Business",
+    img: "https://media.istockphoto.com/id/2165766634/photo/white-comfortable-pillow-on-white-bed-decoration-interior-of-hotel-bedroom.jpg?s=612x612&w=0&k=20&c=MRT__Cg0bUg6_j9gMqY5rpGyk3GxTHlBKFsAJSs3qQY=",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut consequuntur culpa voluptatum excepturi doloribus ad sequi illum quidem cupiditate earum quo laboriosam."
+  },
+  {
+    title: "Service",
+    img: "https://media.istockphoto.com/id/1453121684/photo/modern-hotel-room-with-double-bed-night-tables-and-day-sofa-bed.jpg?s=612x612&w=0&k=20&c=zIw8iR0vtQa19VQlrohzQEt7x-izuwP6JBjJY_68--8=",
+    description:
+      "High-quality service including 24/7 concierge, laundry, and customized hospitality to make your stay comfortable."
+  },
+  {
+    title: "Outdoor",
+    img: "https://media.istockphoto.com/id/180451126/photo/hotel-standard-room.jpg?s=612x612&w=0&k=20&c=iu4nL4_zUf7AI6iL74zvpqHFg-0AFR3bdTP68WJf5_g=",
+    description:
+      "Enjoy breathtaking outdoor experiences such as swimming pools, gardens, and recreational spaces designed for relaxation."
+  }
+];
+
+const facilitiesContainer = document.getElementById("facilitiesContainer");
+
+facilities.map(facility => {
+  const card = document.createElement("div");
+  card.className = "bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transition p-4";
+
+  card.innerHTML = `
+    <img src="${facility.img}" alt="${facility.title}" class="w-full h-56 object-cover rounded-lg">
+    <h2 class="text-2xl font-bold text-gray-700 mt-4">${facility.title}</h2>
+    <p class="text-gray-600 mt-2">${facility.description}</p>
+  `;
+
+  facilitiesContainer.appendChild(card);
+});
+
+
+
+const guests = [
+  {
+    name: "Sarah Johnson",
+    img: "https://randomuser.me/api/portraits/women/32.jpg",
+    review: "The Grand Horizon Resort exceeded all our expectations. The service was impeccable, the rooms were spacious and clean, and the location was perfect. We'll definitely be back!",
+    rating: 5
+  },
+  {
+    name: "Michael Chen",
+    img: "https://randomuser.me/api/portraits/men/43.jpg",
+    review: "Royal Palms Hotel made our anniversary trip unforgettable. The staff went above and beyond to make our stay special. The ocean view from our balcony was breathtaking.",
+    rating: 5
+  },
+  {
+    name: "Emma Rodriguez",
+    img: "https://randomuser.me/api/portraits/women/65.jpg",
+    review: "Mountain View Lodge was the perfect winter getaway. Cozy rooms, delicious food, and direct access to ski slopes. The eco-friendly approach was a big plus for us nature lovers.",
+    rating: 5
+  }
+];
+
+
+const guestContainer = document.getElementById("guestContainer");
+
+guests.map(guest => {
+  const card = document.createElement("div");
+  card.className = "bg-white p-8 rounded-lg shadow-md border border-gray-200";
+
+  // Generate star ratings dynamically
+  let stars = "";
+  for (let i = 0; i < guest.rating; i++) {
+    stars += `<i class="fas fa-star text-yellow-400"></i>`;
+  }
+
+  card.innerHTML = `
+    <div class="flex flex-col items-center mb-4">
+      <img class="h-10 w-10 rounded-full" src="${guest.img}" alt="${guest.name}">
+      <div class="ml-3">
+        <p class="text-sm font-medium text-gray-900">${guest.name}</p>
+        <div class="flex">${stars}</div>
+      </div>
+    </div>
+    <p class="text-gray-600">"${guest.review}"</p>
+  `;
+
+  guestContainer.appendChild(card);
+});
+
+
 </script>
 
 </body>
