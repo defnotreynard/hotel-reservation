@@ -28,11 +28,14 @@ if ($result->num_rows > 0) {
     echo "<td>" . $row['departure_date'] . "</td>";
     echo "<td>" . htmlspecialchars($row['email']) . "</td>";
     echo "<td>" . htmlspecialchars($row['phone']) . "</td>";
-    echo "<td>Pending</td>"; // ✅ You can replace with real status later
-    echo "<td class='text-right'>
-            <a href='edit_booking.php?id=" . $row['booking_id'] . "' class='btn btn-sm btn-primary'>Edit</a>
-            <a href='delete_booking.php?id=" . $row['booking_id'] . "' class='btn btn-sm btn-danger'>Delete</a>
-          </td>";
+    echo "<td>Pending</td>";
+    echo "<td class='text-right'>";
+    echo "
+<a href='http://localhost/hotelMS/admin_page/edit-booking.html?code=" . urlencode($row['booking_code']) . "' class='btn btn-sm btn-primary'>Edit</a>
+<a href='http://localhost/hotelMS/admin_page/delete-booking.html?code=" . urlencode($row['booking_code']) . "' class='btn btn-sm btn-danger'>Delete</a>
+";
+    echo "</td>";
+
     echo "</tr>";
   }
 } else {
