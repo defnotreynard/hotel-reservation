@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body  class="overflow-x-hidden h-screen w-full" style="opacity:0; transition:opacity 0.6s ease; background:none;">
+
+<!-- Navbar -->
+<nav class="text-2xl p-1 bg-white text-gray-500 relative z-10">
+  <div class="flex justify-between items-center p-2">
+    <div class="md:ml-[5%] uppercase text-gray-700 font-bold">Logo</div>
+    <ul class="flex flex-wrap gap-6 md:space-x-20 px-4 md:px-[5%]">
+      <li><a href="home.html" id="home" class="hover:text-gray-700 nav-link">Home</a></li>
+      <li><a href="about.html" id="about" class="hover:text-gray-700 nav-link">About</a></li>
+      <li><a href="rooms.html" id="rooms" class="hover:text-gray-700 nav-link">Rooms</a></li>
+      <li><a href="contact.html" id="contact" class="hover:text-gray-700 nav-link">Contact</a></li>
+      <li>
+        <button class="bg-[#FFD23E] text-xl text-white px-5 rounded p-2">
+          Book Now
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <style>
+    /* Style for active navigation item */
+    .active {
+      border-bottom: 2px solid #FFD23E; /* Yellow line */
+      padding-bottom: 5px;
+      color:orange;
+    }
+  </style>
+
+  <script>
+    // Get the current page filename
+    const currentPage = window.location.pathname.split("/").pop();
+
+    // Get all navigation links
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Loop through each nav link and add 'active' class to the current page
+    navLinks.forEach(link => {
+      // Check if the 'href' attribute matches the current page
+      if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");  // Add the 'active' class for the underline
+      }
+    });
+  </script>
+</nav>
+
+  
+
+      <div class="relative h-[65vh]  bg-cover bg-center" style="background-image: url('images/view.jpg');">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="relative z-10 flex justify-center items-center h-[80vh] text-center text-white">
+          <div>
+            <h1 class="text-6xl font-bold mb-5">CONTACT</h1>
+          </div>
+        </div>
+      </div>
+
+
+    <div class="md:flex   md:gap-20 justify-center p-20" >
+
+        <div class="bg-white shadow-lg p-10 mb-5 border-2 border-gray-200 rounded flex flex-col gap-5 justify-center text-center">
+            <div>
+                <img src="images/phone-call.png" alt="call" class="mx-auto w-[40px] h-[50px] object-contain">
+            </div>
+            <div class="mt-[-5%]">
+                <h1 class="text-2xl font-semibold mb-5 text-gray-600">Call Us</h1>
+                <p class="text-gray-500">Phone support is open from 9am to 5pm</p>
+                <p class="text-amber-600">09978872386 <span class="text-gray-500">|</span> 0987636323</p>
+            </div>
+        </div>
+
+        
+        <div class="bg-white shadow-lg p-10 border-2 mb-5  border-gray-200 rounded flex flex-col gap-5 justify-center text-center">
+            <div>
+                <img src="images/email (1).png" alt="call" class="mx-auto w-[40px] h-[50px] object-contain">
+            </div>
+            <div class="mt-[-5%]">
+                <h1 class="text-2xl font-semibold mb-5 text-gray-600">Email Us</h1>
+                <p class="text-gray-500">For general inquiries and questions contact us via gmail</p>
+                <p class="text-amber-600">luxstay@gmail.com</p>
+            </div>
+        </div>
+
+
+         
+        <div class="bg-white shadow-lg p-10 border-2 border-gray-200 rounded flex flex-col gap-5 justify-center text-center">
+            <div>
+                <img src="images/maps-and-flags.png" alt="call" class="mx-auto w-[40px] h-[50px] object-contain">
+            </div>
+            <div class="mt-[-5%]">
+                <h1 class="text-2xl font-semibold mb-5 text-gray-600">Call Us</h1>
+                <p class="text-gray-500">Phone support is open from 9am to 5pm</p>
+                <p class="text-amber-600">09978872386 <span class="text-gray-500">|</span> 0987636323</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="md:flex justify-center  md:gap-10 p-8">
+        <div class="w-full max-w-lg bg-white shadow-lg border rounded-2xl p-6">
+          <form action="submit" method="post" class="space-y-4">
+            <h1 class="text-2xl font-bold text-amber-500">Send Message</h1>
+            <p class="text-gray-600">Have a question? We’re here to help. Send us a message and we'll be in touch.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700">First Name</label>
+                <input type="text" placeholder="First Name" class="mt-1 w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Last Name</label>
+                <input type="text" placeholder="Last Name" class="mt-1 w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+            </div>
+      
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" placeholder="Email" class="mt-1 w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+                <input type="tel" placeholder="Phone Number" class="mt-1 w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+            </div>
+      
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Message</label>
+              <textarea placeholder="Write your message..." rows="4" class="mt-1 w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+            </div>
+      
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">Submit</button>
+          </form>
+        </div>
+
+        <div class="w-full md:h-[70vh] h-[20vh]  mt-[5%] md:mt-0 md:w-[40%]">
+            <iframe 
+              class="w-full h-full rounded"
+              frameborder="0"
+              scrolling="no"
+              marginheight="0"
+              marginwidth="0"
+              src="https://maps.google.com/maps?hl=en&q=Dumaguete&t=&z=14&ie=UTF8&iwloc=B&output=embed">
+            </iframe>
+          </div>
+          
+      </div>
+      
+
+ 
+
+
+
+
+      <footer class="bg-gray-800 md:mt-10">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+              <h3
+                class="text-white text-sm font-semibold tracking-wider uppercase"
+              >
+                Company
+              </h3>
+              <ul class="mt-4 space-y-4">
+                <li>
+                    <a href="#" class="text-gray-300 hover:text-white text-base"
+                      >Home</a
+                    >
+                  </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >About</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Rooms</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Contact</a
+                  >
+                </li>
+               
+              </ul>
+            </div>
+    
+            <div>
+              <h3
+                class="text-white text-sm font-semibold tracking-wider uppercase"
+              >
+                Support
+              </h3>
+              <ul class="mt-4 space-y-4">
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Help Center</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Safety</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Cancellation Policy</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Report Issue</a
+                  >
+                </li>
+              </ul>
+            </div>
+    
+            <div>
+              <h3
+                class="text-white text-sm font-semibold tracking-wider uppercase"
+              >
+                Legal
+              </h3>
+              <ul class="mt-4 space-y-4">
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Terms of Service</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Privacy Policy</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Cookie Policy</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >GDPR</a
+                  >
+                </li>
+              </ul>
+            </div>
+    
+            <div>
+              <h3
+                class="text-white text-sm font-semibold tracking-wider uppercase"
+              >
+                Contact Us
+              </h3>
+              <ul class="mt-4 space-y-4">
+                <li class="flex items-center">
+                  <i class="fas fa-map-marker-alt text-gray-300 mr-2"></i>
+                  <span class="text-gray-300"
+                    >123 Luxury Street, Suite 100, New York, NY 10001</span
+                  >
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-phone-alt text-gray-300 mr-2"></i>
+                  <span class="text-gray-300">+1 (555) 123-4567</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-envelope text-gray-300 mr-2"></i>
+                  <span class="text-gray-300">hello@luxstay.com</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+    
+          <div
+            class="mt-8 pt-8 md:flex md:items-center md:justify-between"
+          >
+            <div class="flex space-x-6 md:order-2">
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+            <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
+              &copy; 2025 LuxStay. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+
+   
+      <script>
+      document.addEventListener("DOMContentLoaded", () => {
+      // Fade in on load
+      document.body.style.opacity = "1";
+
+      // Smooth fade on navigation
+      const links = document.querySelectorAll("a.nav-link");
+      links.forEach(link => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const href = this.getAttribute("href");
+
+          document.body.style.opacity = "0"; // fade out
+
+          setTimeout(() => {
+            window.location.href = href;
+          }, 600); // match transition duration
+        });
+      });
+    });
+      </script>
+      
+</body>
+</html>
