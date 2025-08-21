@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if ($stmt->execute()) {
     // redirect back to list
-    header("Location: all-bookings.html?updated=1");
+    header("Location: http://localhost/hotelMS/admin_page/all-booking.html?updated=1");
     exit;
   } else {
     echo "Error updating booking: " . $conn->error;
