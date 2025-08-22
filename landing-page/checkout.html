@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <!-- Navbar (same as before) -->
+  <nav class="text-2xl p-1 bg-white text-gray-500 relative z-10">
+    <div class="flex justify-between items-center p-2">
+      <div class="md:ml-[5%] uppercase text-gray-700 font-bold">Logo</div>
+      <ul class="flex flex-wrap gap-6 md:space-x-20 px-4 md:px-[5%]">
+        <li><a href="home.html" class="hover:text-gray-700 nav-link">Home</a></li>
+        <li><a href="about.html" class="hover:text-gray-700 nav-link">About</a></li>
+        <li><a href="rooms.html" class="hover:text-gray-700 nav-link">Rooms</a></li>
+        <li><a href="contact.html" class="hover:text-gray-700 nav-link">Contact</a></li>
+        <li>
+          <button class="bg-[#FFD23E] text-xl text-white px-5 rounded p-2">
+            <a href="booknow.html">Book Now</a>
+          </button>
+        </li>
+        <li>
+          <img src="images/shopping-cart.png" alt="cart" height="50" width="35">
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Checkout Content -->
+  <div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-3xl font-bold text-gray-700 mb-6">Checkout</h1>
+
+    <!-- Customer Info Form -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <div>
+        <label class="block text-gray-600 font-semibold mb-1">First Name</label>
+        <input type="text" class="w-full border rounded px-4 py-2" placeholder="John">
+      </div>
+      <div>
+        <label class="block text-gray-600 font-semibold mb-1">Last Name</label>
+        <input type="text" class="w-full border rounded px-4 py-2" placeholder="Doe">
+      </div>
+      <div>
+        <label class="block text-gray-600 font-semibold mb-1">Email</label>
+        <input type="email" class="w-full border rounded px-4 py-2" placeholder="john@example.com">
+      </div>
+      <div>
+        <label class="block text-gray-600 font-semibold mb-1">Phone</label>
+        <input type="tel" class="w-full border rounded px-4 py-2" placeholder="+63 912 345 6789">
+      </div>
+    </div>
+
+    <!-- Selected Room Display -->
+    <div id="checkoutDetails" class="border p-4 rounded bg-white shadow"></div>
+  </div>
+
+  <!-- Room display script -->
+  <script>
+    const bookingData = JSON.parse(localStorage.getItem("selectedBooking"));
+    const container = document.getElementById("checkoutDetails");
+  
+    if (!bookingData) {
+      container.innerHTML = "<p class='text-red-500'>No room selected. Please go back and choose a room.</p>";
+    } else {
+      const { room, person, checkIn, checkOut, email } = bookingData;
+      container.innerHTML = `
+        <h2 class="text-2xl font-bold mb-4 text-gray-700">Your Booking</h2>
+        <div class="flex flex-col md:flex-row gap-4">
+          <img src="${room.images[0]}" alt="${room.name}" class="w-full md:w-[300px] h-[200px] object-cover rounded">
+          <div>
+            <h3 class="text-xl font-semibold text-gray-800">${room.name}</h3>
+            <p class="text-gray-600">${room.bed}</p>
+            <p class="text-gray-600">${room.breakfast}</p>
+            <p class="text-gray-600 mt-2">${room.description}</p>
+            <p class="text-amber-600 text-lg font-bold mt-4">₱${room.price}.00 per night</p>
+            <p class="mt-2 text-gray-700"><strong>Check-in:</strong> ${checkIn}</p>
+            <p class="text-gray-700"><strong>Check-out:</strong> ${checkOut}</p>
+            <p class="text-gray-700"><strong>Guests:</strong> ${person}</p>
+            <p class="text-gray-700"><strong>Email:</strong> ${email}</p>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+  
+</body>
+</html>
