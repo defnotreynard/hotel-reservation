@@ -31,9 +31,10 @@ if ($result->num_rows > 0) {
     echo "<td>Pending</td>";
     echo "<td class='text-right'>";
     echo "
-<a href='http://localhost/hotelMS/admin_page/edit-booking.html?code=" . urlencode($row['booking_code']) . "' class='btn btn-sm btn-primary'>Edit</a>
-<a href='http://localhost/hotelMS/admin_page/delete-booking.html?code=" . urlencode($row['booking_code']) . "' class='btn btn-sm btn-danger'>Delete</a>
-";
+
+    <a href='http://localhost/hotelMS/admin_page/edit-booking.html?code=" . urlencode($row['booking_code']) . "' class='btn btn-sm btn-primary'>Edit</a>
+    <a href='assets/php/booking/delete_bookings.php?code=" . urlencode($row['booking_code']) . "' class='btn btn-sm btn-danger'>Delete</a>
+    ";
     echo "</td>";
 
     echo "</tr>";

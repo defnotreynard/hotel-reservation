@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body style="opacity:0; transition:opacity 0.6s ease; background:none;">
+
+<!-- Navbar -->
+<nav class="text-2xl p-1 bg-white text-gray-500 relative z-10">
+  <div class="flex justify-between items-center p-2">
+    <div class="md:ml-[5%] uppercase text-gray-700 font-bold">Logo</div>
+    <ul class="flex flex-wrap gap-6 md:space-x-20 px-4 md:px-[5%]">
+      <li><a href="home.html" id="home" class="hover:text-gray-700 nav-link">Home</a></li>
+      <li><a href="about.html" id="about" class="hover:text-gray-700 nav-link">About</a></li>
+      <li><a href="rooms.html" id="rooms" class="hover:text-gray-700 nav-link">Rooms</a></li>
+      <li><a href="contact.html" id="contact" class="hover:text-gray-700 nav-link">Contact</a></li>
+      <li>
+        <button class="bg-[#FFD23E] text-xl text-white px-5 rounded p-2">
+          Book Now
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <style>
+    /* Style for active navigation item */
+    .active {
+      border-bottom: 2px solid #FFD23E; /* Yellow line */
+      padding-bottom: 5px;
+      color:orange;
+    }
+  </style>
+
+  <script>
+    // Get the current page filename
+    const currentPage = window.location.pathname.split("/").pop();
+
+    // Get all navigation links
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Loop through each nav link and add 'active' class to the current page
+    navLinks.forEach(link => {
+      // Check if the 'href' attribute matches the current page
+      if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");  // Add the 'active' class for the underline
+      }
+    });
+  </script>
+</nav>
+
+  
+
+      <div class="relative h-[65vh]  bg-cover bg-center" style="background-image: url('images/view.jpg');">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="relative z-10 flex justify-center items-center h-[80vh] text-center text-white">
+          <div>
+            <h1 class="text-6xl font-bold mb-5">ABOUT</h1>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="px-20 py-20 text-lg text-center">
+        <p>Hotel Cebu is a 4-star hospitality property located in Mandaue City, Cebu. Opened last 2017, bai Hotel Cebu is an independent hotel. Nestled between the bustling cities of Mandaue and Cebu, it presents spectacular harbor and city views with ultra-modern amenities and facilities. A contemporary chic business hotel and culinary destination in one of the country’s top business and leisure destinations.  All 668 guestrooms and 8 restaurants are stylishly designed in contemporary hues that evoke an ambiance of modern luxury and spaciousness secured with a world-class access control system. Envisioned to enhance the beauty and transformation of the highly-urbanized cities of  
+        </p>
+      </div>
+
+
+
+
+
+
+
+      <div id="roomsContainer" class="flex flex-col items-center space-y-10 px-6 md:px-20 py-10"></div>
+
+
+      <footer class="bg-gray-800 mt-10">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+              <h3
+                class="text-white text-sm font-semibold tracking-wider uppercase"
+              >
+                Company
+              </h3>
+              <ul class="mt-4 space-y-4">
+                <li>
+                    <a href="#" class="text-gray-300 hover:text-white text-base"
+                      >Home</a
+                    >
+                  </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >About</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Rooms</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Contact</a
+                  >
+                </li>
+               
+              </ul>
+            </div>
+    
+            <div>
+              <h3
+                class="text-white text-sm font-semibold tracking-wider uppercase"
+              >
+                Support
+              </h3>
+              <ul class="mt-4 space-y-4">
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Help Center</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Safety</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Cancellation Policy</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Report Issue</a
+                  >
+                </li>
+              </ul>
+            </div>
+    
+            <div>
+              <h3
+                class="text-white text-sm font-semibold tracking-wider uppercase"
+              >
+                Legal
+              </h3>
+              <ul class="mt-4 space-y-4">
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Terms of Service</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Privacy Policy</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >Cookie Policy</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-gray-300 hover:text-white text-base"
+                    >GDPR</a
+                  >
+                </li>
+              </ul>
+            </div>
+    
+            <div>
+              <h3
+                class="text-white text-sm font-semibold tracking-wider uppercase"
+              >
+                Contact Us
+              </h3>
+              <ul class="mt-4 space-y-4">
+                <li class="flex items-center">
+                  <i class="fas fa-map-marker-alt text-gray-300 mr-2"></i>
+                  <span class="text-gray-300"
+                    >123 Luxury Street, Suite 100, New York, NY 10001</span
+                  >
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-phone-alt text-gray-300 mr-2"></i>
+                  <span class="text-gray-300">+1 (555) 123-4567</span>
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-envelope text-gray-300 mr-2"></i>
+                  <span class="text-gray-300">hello@luxstay.com</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+    
+          <div
+            class="mt-8 pt-8 md:flex md:items-center md:justify-between"
+          >
+            <div class="flex space-x-6 md:order-2">
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+            <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
+              &copy; 2025 LuxStay. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+
+      <script>
+        const rooms = [
+          {
+            description: "Situated in the heart of Dumaguete City, M.Y. Hotel is the first and only Art Deco boutique Hotel that truly offers an artistic colorful palette that is fun, trendy, and offbeat. It is the first with a rooftop pool that offers a stunning view of Mt Talinis and the first pet-friendly hotel in the city.",
+            images: [
+              "https://img.freepik.com/free-photo/3d-rendering-beautiful-comtemporary-luxury-bedroom-suite-hotel-with-tv_105762-2071.jpg?w=740&q=80",
+              "https://img.freepik.com/free-photo/3d-rendering-luxury-bedroom-suite-hotel-with-tv-cabinet-wardrobe_105762-2292.jpg?w=740&q=80",
+              "https://media.istockphoto.com/id/1453121684/photo/modern-hotel-room-with-double-bed-night-tables-and-day-sofa-bed.jpg?s=612x612&w=0&k=20&c=zIw8iR0vtQa19VQlrohzQEt7x-izuwP6JBjJY_68--8="
+            ]
+          },
+          {
+            description: "Situated in the heart of Dumaguete City, M.Y. Hotel is the first and only Art Deco boutique Hotel that truly offers an artistic colorful palette that is fun, trendy, and offbeat. It is the first with a rooftop pool that offers a stunning view of Mt Talinis and the first pet-friendly hotel in the city.",
+            images: [
+              "https://img.freepik.com/premium-photo/interior-photography-modern-style-bedroom-with-large-bed_321831-670.jpg?w=740&q=80",
+              "https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?w=740&q=80",
+              "https://img.freepik.com/free-photo/luxury-bedroom-hotel_1150-10836.jpg?w=740&q=80"
+            ]
+          }
+        ];
+      
+        const container = document.getElementById("roomsContainer");
+      
+        rooms.forEach((room, idx) => {
+  const card = document.createElement("div");
+  card.className = "flex flex-col md:flex-row w-full md:w-[80%] mb-10 overflow-hidden";
+
+  // IMAGE AREA
+  const imageArea = document.createElement("div");
+  imageArea.className = "relative w-full md:w-1/2 h-[40vh] md:h-[50vh]";
+
+  const img1 = document.createElement("div");
+  img1.className = "absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-100";
+  img1.style.backgroundImage = `url('${room.images[0]}')`;
+
+  const img2 = document.createElement("div");
+  img2.className = "absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0";
+
+  imageArea.appendChild(img1);
+  imageArea.appendChild(img2);
+
+  let currentIndex = 0;
+  let showingFirst = true;
+
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % room.images.length;
+    if (showingFirst) {
+      img2.style.backgroundImage = `url('${room.images[currentIndex]}')`;
+      img2.classList.replace("opacity-0", "opacity-100");
+      img1.classList.replace("opacity-100", "opacity-0");
+    } else {
+      img1.style.backgroundImage = `url('${room.images[currentIndex]}')`;
+      img1.classList.replace("opacity-0", "opacity-100");
+      img2.classList.replace("opacity-100", "opacity-0");
+    }
+    showingFirst = !showingFirst;
+  }, 4000);
+
+  // TEXT AREA
+  const textArea = document.createElement("div");
+  textArea.className = "w-full md:w-1/2 p-6 flex items-center";
+  textArea.innerHTML = `<p class="text-gray-700 leading-relaxed">${room.description}</p>`;
+
+  // 🔑 Flip order on second card (idx == 1)
+  if (idx % 2 === 0) {
+    card.appendChild(imageArea);
+    card.appendChild(textArea);
+  } else {
+    card.appendChild(textArea);
+    card.appendChild(imageArea);
+  }
+
+  container.appendChild(card);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+      // Fade in on load
+      document.body.style.opacity = "1";
+
+      // Smooth fade on navigation
+      const links = document.querySelectorAll("a.nav-link");
+      links.forEach(link => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const href = this.getAttribute("href");
+
+          document.body.style.opacity = "0"; // fade out
+
+          setTimeout(() => {
+            window.location.href = href;
+          }, 600); // match transition duration
+        });
+      });
+    });
+
+      </script>
+      
+      
+      
+</body>
+</html>

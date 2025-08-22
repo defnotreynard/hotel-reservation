@@ -6,17 +6,17 @@
   <title>LuxStay Hotel</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="h-screen w-full overflow-x-hidden">
+<body style="opacity:0; transition:opacity 0.6s ease; background:none;" class="h-screen w-full overflow-x-hidden" >
 
 <!-- Navbar -->
 <nav class="text-2xl p-1 bg-white text-gray-500 relative z-10">
   <div class="flex justify-between items-center p-2">
     <div class="md:ml-[5%] uppercase text-gray-700 font-bold">Logo</div>
     <ul class="flex flex-wrap gap-6 md:space-x-20 px-4 md:px-[5%]">
-      <li>Home</li>
-      <li>About</li>
-      <li>Rooms</li>
-      <li>Contact</li>
+      <li><a href="home.html" id="home" class="hover:text-gray-700 nav-link">Home</a></li>
+      <li><a href="about.html" id="about" class="hover:text-gray-700 nav-link">About</a></li>
+      <li><a href="rooms.html" id="rooms" class="hover:text-gray-700 nav-link">Rooms</a></li>
+      <li><a href="contact.html" id="contact" class="hover:text-gray-700 nav-link">Contact</a></li>
       <li>
         <button class="bg-[#FFD23E] text-xl text-white px-5 rounded p-2">
           Book Now
@@ -24,11 +24,46 @@
       </li>
     </ul>
   </div>
+
+  <style>
+    /* Style for active navigation item */
+    .active {
+      border-bottom: 2px solid #FFD23E; /* Yellow line */
+      padding-bottom: 5px;
+      color:orange;
+    }
+  </style>
+
+  <script>
+    // Get the current page filename
+    const currentPage = window.location.pathname.split("/").pop();
+
+    // Get all navigation links
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Loop through each nav link and add 'active' class to the current page
+    navLinks.forEach(link => {
+      // Check if the 'href' attribute matches the current page
+      if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");  // Add the 'active' class for the underline
+      }
+    });
+  </script>
 </nav>
 
+
+
 <!-- Hero -->
-<div class="relative h-[95vh]  bg-cover bg-center" style="background-image: url('images/homeimg.jpg');">
+<div class="relative h-[95vh]" id="heroSection">
+  <!-- Background slideshow layers -->
+  <div id="heroBg1" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-100"
+       style="background-image: url('images/homeimg.jpg');"></div>
+  <div id="heroBg2" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0"></div>
+
+  <!-- Dark overlay always on top -->
   <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+  <!-- Content -->
   <div class="relative z-10 flex justify-center items-center h-[80vh] text-center text-white">
     <div>
       <h1 class="text-6xl font-bold mb-5">Stay Quietly</h1>
@@ -38,11 +73,53 @@
       </p>
     </div>
   </div>
+
+  <script>
+    const heroImages = [
+      "images/homeimg.jpg",
+      "images/view.jpg",
+      "images/pool.jpg"
+    ];
+
+    let currentHeroIndex = 0;
+    let showingFirst = true;
+
+    const bg1 = document.getElementById("heroBg1");
+    const bg2 = document.getElementById("heroBg2");
+
+    function changeHeroImage() {
+      currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
+
+      if (showingFirst) {
+        bg2.style.backgroundImage = `url('${heroImages[currentHeroIndex]}')`;
+        bg2.classList.remove("opacity-0");
+        bg2.classList.add("opacity-100");
+
+        bg1.classList.remove("opacity-100");
+        bg1.classList.add("opacity-0");
+      } else {
+        bg1.style.backgroundImage = `url('${heroImages[currentHeroIndex]}')`;
+        bg1.classList.remove("opacity-0");
+        bg1.classList.add("opacity-100");
+
+        bg2.classList.remove("opacity-100");
+        bg2.classList.add("opacity-0");
+      }
+
+      showingFirst = !showingFirst;
+    }
+
+    setInterval(changeHeroImage, 5000); // change every 5s
+  </script>
 </div>
+
+
+
 
 <!-- Booking Form -->
 <div class="relative z-20 flex justify-center -mt-[3%] mb-[2%]">
   <div class="flex gap-10 flex-wrap bg-white p-6 rounded-xl shadow-lg">
+    
     <div>
       <label for="person" class="block text-gray-600">Person</label>
       <select id="person" class="border p-2 rounded w-40">
@@ -53,21 +130,32 @@
         <option value="4">4 People</option>
       </select>
     </div>
+    
     <div>
       <label for="check-in" class="block text-gray-600">Check-in</label>
       <input type="date" id="check-in" class="border p-2 rounded w-48">
     </div>
+    
     <div>
       <label for="check-out" class="block text-gray-600">Check-out</label>
       <input type="date" id="check-out" class="border p-2 rounded w-48">
     </div>
+    
+    <!-- Email field -->
+    <div>
+      <label for="email" class="block text-gray-600">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" class="border p-2 rounded w-60">
+    </div>
+    
     <div class="flex items-end">
       <button class="bg-amber-400 text-white px-6 py-2 rounded hover:bg-yellow-500 transition">
         Book Now
       </button>
     </div>
+    
   </div>
 </div>
+
 
 <!-- Rooms Container -->
 <div id="roomsContainer" class="flex flex-col  items-center gap-10 my-10"></div>
@@ -255,11 +343,26 @@
 <script>
  const rooms = [
     {
-      name: "Deluxe Room",
-      price: 320,
+      name: "Presedential Room",
+      price: 400,
       rating: "5.0 ⭐",
       description: "Spacious deluxe room with modern interior design and comfort.",
-      img: "https://media.istockphoto.com/id/2165766634/photo/white-comfortable-pillow-on-white-bed-decoration-interior-of-hotel-bedroom.jpg?s=612x612&w=0&k=20&c=MRT__Cg0bUg6_j9gMqY5rpGyk3GxTHlBKFsAJSs3qQY=",
+      img: "https://img.freepik.com/free-photo/3d-rendering-beautiful-comtemporary-luxury-bedroom-suite-hotel-with-tv_105762-2071.jpg?w=740&q=80",
+      features: [
+        { img: "images/user (2).png", text: "4 Persons" },
+        { img: "images/wi-fi.png", text: "Free WiFi" },
+        { img: "images/bed.png", text: "King Size Bed" },
+        { img: "images/tape-measure.png", text: "38 Sqm" },
+        { img: "images/shower.png", text: "Shower" },
+        { img: "images/croissant.png", text: "Breakfast" }
+      ]
+    },
+    {
+      name: "Delux Room",
+      price: 250,
+      rating: "4.8 ⭐",
+      description: "Luxury suite with private pool, spa access, and city view.",
+      img: "https://img.freepik.com/free-photo/3d-rendering-luxury-bedroom-suite-hotel-with-tv-cabinet-wardrobe_105762-2292.jpg?w=740&q=80",
       features: [
         { img: "images/user (2).png", text: "4 Persons" },
         { img: "images/wi-fi.png", text: "Free WiFi" },
@@ -271,25 +374,10 @@
     },
     {
       name: "Premium Suite",
-      price: 250,
-      rating: "4.8 ⭐",
-      description: "Luxury suite with private pool, spa access, and city view.",
-      img: "https://media.istockphoto.com/id/1453121684/photo/modern-hotel-room-with-double-bed-night-tables-and-day-sofa-bed.jpg?s=612x612&w=0&k=20&c=zIw8iR0vtQa19VQlrohzQEt7x-izuwP6JBjJY_68--8=",
-      features: [
-        { img: "images/user (2).png", text: "4 Persons" },
-        { img: "images/wi-fi.png", text: "Free WiFi" },
-        { img: "images/bed.png", text: "King Size Bed" },
-        { img: "images/tape-measure.png", text: "38 Sqm" },
-        { img: "images/shower.png", text: "Shower" },
-        { img: "images/croissant.png", text: "Breakfast" }
-      ]
-    },
-    {
-      name: "Standard Room",
       price: 150,
       rating: "4.8 ⭐",
       description: "Luxury suite with private pool, spa access, and city view.",
-      img: "https://media.istockphoto.com/id/180451126/photo/hotel-standard-room.jpg?s=612x612&w=0&k=20&c=iu4nL4_zUf7AI6iL74zvpqHFg-0AFR3bdTP68WJf5_g=",
+      img: "https://media.istockphoto.com/id/1453121684/photo/modern-hotel-room-with-double-bed-night-tables-and-day-sofa-bed.jpg?s=612x612&w=0&k=20&c=zIw8iR0vtQa19VQlrohzQEt7x-izuwP6JBjJY_68--8=",
       features: [
         { img: "images/user (2).png", text: "4 Persons" },
         { img: "images/wi-fi.png", text: "Free WiFi" },
@@ -372,6 +460,8 @@
     card.appendChild(right);
     container.appendChild(card);
   });
+
+
   const facilities = [
   {
     title: "Business",
@@ -458,7 +548,25 @@ guests.map(guest => {
   guestContainer.appendChild(card);
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+      // Fade in on load
+      document.body.style.opacity = "1";
 
+      // Smooth fade on navigation
+      const links = document.querySelectorAll("a.nav-link");
+      links.forEach(link => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const href = this.getAttribute("href");
+
+          document.body.style.opacity = "0"; // fade out
+
+          setTimeout(() => {
+            window.location.href = href;
+          }, 600); // match transition duration
+        });
+      });
+    });
 </script>
 
 </body>
