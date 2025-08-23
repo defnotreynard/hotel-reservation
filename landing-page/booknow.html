@@ -21,9 +21,7 @@
             <a href="booknow.html">Book Now</a>
           </button>
         </li>
-        <li>         
-          <a href="checkout.html"> <img src="images/shopping-cart.png" alt="cart" height="50" width="35"></a>
-        </li>
+        
       </ul>
     </div>
     <style>
@@ -72,23 +70,71 @@
         </div>
       </div>
     </div>
-    <div class="mr-[1%] border-2 p-10 w-[30%]">
-        order details
-      <h1 class="text-gray-500 text-xl font-semibold">Your Cart: 0 Item</h1>
-      <h1 class="text-gray-600 text-xl font-semibold">Total ₱ <span>0.00</span></h1>
-    </div>
-  </div>
-  
-<!-- Checkout Modal -->
-<div id="checkoutModal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-    <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-3xl p-6 relative">
-      <button id="closeCheckout" class="absolute top-3 right-3 text-2xl font-bold hover:text-gray-700">&times;</button>
-      <h2 class="text-3xl font-bold mb-4 text-gray-700">Checkout Summary</h2>
-      <div id="checkoutContent" class="text-gray-700"></div>
-    </div>
-  </div>
-  
 
+    <div id="cartSummary" class="mr-[1%] absolute right-[-1%] top-[37%] border-2 p-10 w-[30%]">
+      <p class="text-sm text-gray-600 mb-2">Order details</p>
+      <h1 class="text-gray-500 text-xl font-semibold">Your Cart: <span id="cartItemCount">0</span> Item</h1>
+      <h1 class="text-gray-600 text-xl font-semibold">Total $ <span id="cartTotalAmount">0.00</span></h1>
+      
+      <!-- Cart Items List -->
+      <div id="cartItemsList" class="mt-4 space-y-2 max-h-40 overflow-y-auto"></div>
+      
+      <!-- Checkout Button -->
+      <button id="checkoutButton" onclick="openCheckoutModal()" class="mt-4 w-full bg-[#FFD23E] text-white px-4 py-2 rounded hover:bg-yellow-500 transition-colors disabled:bg-gray-300" disabled>
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+  
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-4xl p-6 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeCheckoutModal()" class="absolute top-3 right-3 text-2xl font-bold hover:text-gray-700">&times;</button>
+      <h2 class="text-3xl font-bold mb-6 text-amber-400">Checkout Summary</h2>
+      
+      <!-- Customer Info Form -->
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold mb-4">Customer Information</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-gray-600 font-semibold mb-1">First Name</label>
+            <input type="text" id="firstName" class="w-full border rounded px-4 py-2" placeholder="John">
+          </div>
+          <div>
+            <label class="block text-gray-600 font-semibold mb-1">Last Name</label>
+            <input type="text" id="lastName" class="w-full border rounded px-4 py-2" placeholder="Doe">
+          </div>
+          <div>
+            <label class="block text-gray-600 font-semibold mb-1">Email</label>
+            <input type="email" id="customerEmail" class="w-full border rounded px-4 py-2" placeholder="john@example.com">
+          </div>
+          <div>
+            <label class="block text-gray-600 font-semibold mb-1">Phone</label>
+            <input type="tel" id="phone" class="w-full border rounded px-4 py-2" placeholder="+63 912 345 6789">
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Details -->
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold mb-4">Booking Details</h3>
+        <div id="checkoutRoomsList" class="space-y-4"></div>
+      </div>
+
+      <!-- Total -->
+      <div class="border-t pt-4 mb-6">
+        <div class="flex justify-between items-center text-xl font-bold">
+          <span>Total Amount:</span>
+          <span class="text-amber-500">$<span id="checkoutTotal">0.00</span></span>
+        </div>
+      </div>
+
+      <!-- Confirm Button -->
+      <button onclick="confirmBooking()" class="w-full bg-[#FFD23E] hover:bg-yellow-500 text-white py-3 rounded-lg font-semibold text-lg transition-colors">
+        Confirm Booking
+      </button>
+    </div>
+  </div>
 
   <h1 class="text-3xl font-bold text-gray-500 ml-5">Select A Room</h1>
   <div class="border-b-2 w-[69%] mt-2"></div>
@@ -105,6 +151,7 @@
   <script>
     const rooms = [
       {
+        id: 1,
         name: "Presidential Suite",
         bed: "1 King Bed",
         breakfast: "Breakfast Included",
@@ -117,6 +164,7 @@
             ]
       },
       {
+        id: 2,
         name: "Deluxe Room",
         bed: "1 King Bed",
         breakfast: "Breakfast Included",
@@ -129,6 +177,7 @@
             ]
       },
       {
+        id: 3,
         name: "Premium Suite",
         bed: "1 King Bed",
         breakfast: "Breakfast Included",
@@ -141,6 +190,7 @@
             ]
       },
       {
+        id: 4,
         name: "Standard Room",
         bed: "1 Queen Bed",
         breakfast: "Breakfast Included",
@@ -153,6 +203,7 @@
             ]
       },
       {
+        id: 5,
         name: "Premier Room",
         bed: "1 King Bed",
         breakfast: "Breakfast Included",
@@ -165,6 +216,7 @@
             ]
       },
       {
+        id: 6,
         name: "One-Bedroom Suite",
         bed: "1 King Bed",
         breakfast: "Breakfast Included",
@@ -177,6 +229,7 @@
             ]
       },
       {
+        id: 7,
         name: "Executive Room",
         bed: "1 King Bed",
         breakfast: "Breakfast Included",
@@ -189,6 +242,7 @@
             ]
       },
       {
+        id: 8,
         name: "Economy Room",
         bed: "1 Double Bed",
         breakfast: "Breakfast Included",
@@ -202,6 +256,22 @@
       }
     ];
 
+    // Cart functionality
+    let cart = [];
+    
+    // Set minimum dates
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('check-in').setAttribute('min', today);
+    document.getElementById('check-out').setAttribute('min', today);
+
+    // Update checkout date when checkin changes
+    document.getElementById('check-in').addEventListener('change', function() {
+      const checkinDate = new Date(this.value);
+      checkinDate.setDate(checkinDate.getDate() + 1);
+      const minCheckout = checkinDate.toISOString().split('T')[0];
+      document.getElementById('check-out').setAttribute('min', minCheckout);
+    });
+
     const container = document.getElementById("roomsContainer");
     const modal = document.getElementById("galleryModal");
     const modalImg = document.getElementById("modalImg");
@@ -209,154 +279,247 @@
     let currentIndex = 0;
 
     rooms.forEach((room) => {
-  const card = document.createElement("div");
-  card.className = "relative flex flex-col md:flex-row w-full md:w-[69%] mt-4 rounded-lg overflow-hidden border";
+      const card = document.createElement("div");
+      card.className = "relative flex flex-col md:flex-row w-full md:w-[69%] mt-4 rounded-lg overflow-hidden border";
 
-  // Left: image
-  const left = document.createElement("div");
-  left.className = "relative w-full md:w-1/2 h-[40vh] md:h-[30vh] overflow-hidden";
+      // Left: image
+      const left = document.createElement("div");
+      left.className = "relative w-full md:w-1/2 h-[40vh] md:h-[30vh] overflow-hidden";
 
-  const img = document.createElement("img");
-  img.src = room.images[0]; 
-  img.className = "h-full w-full object-cover";
-  left.appendChild(img);
+      const img = document.createElement("img");
+      img.src = room.images[0]; 
+      img.className = "h-full w-full object-cover";
+      left.appendChild(img);
 
-  const overlay = document.createElement("img");
-  overlay.src = "images/image-gallery.png";
-  overlay.className = "absolute bottom-2 right-2 w-8 h-8 bg-white rounded-full p-1 shadow-md cursor-pointer";
-  overlay.onclick = () => openGallery(room.images);
-  left.appendChild(overlay);
+      const overlay = document.createElement("img");
+      overlay.src = "images/image-gallery.png";
+      overlay.className = "absolute bottom-2 right-2 w-8 h-8 bg-white rounded-full p-1 shadow-md cursor-pointer";
+      overlay.onclick = () => openGallery(room.images);
+      left.appendChild(overlay);
 
-  // Right: info
-  const right = document.createElement("div");
-  right.className = "w-full md:w-[70%] p-6 flex flex-col justify-between";
+      // Right: info
+      const right = document.createElement("div");
+      right.className = "w-full md:w-[70%] p-6 flex flex-col justify-between";
 
-  // Create a div for the right content
-  const content = document.createElement("div");
-  content.className = "flex justify-between items-start mb-4";
+      // Create a div for the right content
+      const content = document.createElement("div");
+      content.className = "flex justify-between items-start mb-4";
 
-  // Room details
-  const roomDetails = document.createElement("div");
-  roomDetails.className = "w-[65%]";
-  roomDetails.innerHTML = `
-    <h1 class="text-2xl text-gray-500 font-bold">${room.name}</h1> 
-    <p class="text-gray-500">${room.bed}</p>
-    <p class="font-semibold text-gray-500">${room.breakfast}</p>
-    <p class="text-gray-600 leading-relaxed mt-4">${room.description}</p>
-  `;
+      // Room details
+      const roomDetails = document.createElement("div");
+      roomDetails.className = "w-[65%]";
+      roomDetails.innerHTML = `
+        <h1 class="text-2xl text-gray-500 font-bold">${room.name}</h1> 
+        <p class="text-gray-500">${room.bed}</p>
+        <p class="font-semibold text-gray-500">${room.breakfast}</p>
+        <p class="text-gray-600 leading-relaxed mt-4">${room.description}</p>
+      `;
 
-  // Price and button
-  const booking = document.createElement("div");
-  booking.className = "text-right flex flex-col items-start gap-2";
+      // Price and button
+      const booking = document.createElement("div");
+      booking.className = "text-right flex flex-col items-start gap-2";
 
-  const price = document.createElement("h1");
-  price.className = "text-2xl font-bold text-amber-500";
-  price.innerText = `$${room.price}`;
+      const price = document.createElement("h1");
+      price.className = "text-2xl font-bold text-amber-500";
+      price.innerText = `$${room.price}`;
 
-  const perNight = document.createElement("p");
-  perNight.className = "text-gray-500 text-sm";
-  perNight.innerText = "Per Night";
+      const perNight = document.createElement("p");
+      perNight.className = "text-gray-500 text-sm";
+      perNight.innerText = "Per Night";
 
-  const button = document.createElement("button");
-  button.className = "bg-amber-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition";
-  button.innerText = "Book Now";
+      const button = document.createElement("button");
+      button.className = "bg-amber-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition";
+      button.innerText = "Add to Cart";
 
-  // 👇 On Book Now Click — store all info
-  button.onclick = () => {
-    const person = document.getElementById("person")?.value;
-    const checkIn = document.getElementById("check-in")?.value;
-    const checkOut = document.getElementById("check-out")?.value;
-    const email = document.getElementById("email")?.value;
+      button.onclick = () => addToCart(room);
 
-    if (!person || !checkIn || !checkOut || !email) {
-      alert("Please fill in all booking details before selecting a room.");
-      return;
+      // Assemble booking section
+      booking.appendChild(price);
+      booking.appendChild(perNight);
+      booking.appendChild(button);
+
+      content.appendChild(roomDetails);
+      content.appendChild(booking);
+
+      right.appendChild(content);
+      card.appendChild(left);
+      card.appendChild(right);
+      container.appendChild(card);
+    });
+
+    function addToCart(room) {
+      const person = document.getElementById("person")?.value;
+      const checkIn = document.getElementById("check-in")?.value;
+      const checkOut = document.getElementById("check-out")?.value;
+      const email = document.getElementById("email")?.value;
+
+      if (!person || !checkIn || !checkOut || !email) {
+        alert("Please fill in all booking details before adding rooms to cart.");
+        return;
+      }
+
+      // Calculate nights
+      const checkinDate = new Date(checkIn);
+      const checkoutDate = new Date(checkOut);
+      const nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+
+      if (nights <= 0) {
+        alert("Check-out date must be after check-in date.");
+        return;
+      }
+
+      // Check if room already in cart
+      const existingItem = cart.find(item => item.room.id === room.id);
+      if (existingItem) {
+        alert("This room is already in your cart!");
+        return;
+      }
+
+      const cartItem = {
+        room,
+        person,
+        checkIn,
+        checkOut,
+        email,
+        nights,
+        total: room.price * nights
+      };
+
+      cart.push(cartItem);
+      updateCartDisplay();
     }
 
-    const bookingInfo = {
-      room,
-      person,
-      checkIn,
-      checkOut,
-      email
-    };
+    function removeFromCart(roomId) {
+      cart = cart.filter(item => item.room.id !== roomId);
+      updateCartDisplay();
+    }
 
-    localStorage.setItem("selectedBooking", JSON.stringify(bookingInfo));
-    window.location.href = "checkout.html";
-  };
+    function updateCartDisplay() {
+      const cartItemCount = document.getElementById('cartItemCount');
+      const cartTotalAmount = document.getElementById('cartTotalAmount');
+      const cartItemsList = document.getElementById('cartItemsList');
+      const checkoutButton = document.getElementById('checkoutButton');
 
-  // Assemble booking section
-  booking.appendChild(price);
-  booking.appendChild(perNight);
-  booking.appendChild(button);
+      cartItemCount.textContent = cart.length;
+      
+      if (cart.length === 0) {
+        cartTotalAmount.textContent = '0.00';
+        cartItemsList.innerHTML = '<p class="text-gray-500 text-sm">No items in cart</p>';
+        checkoutButton.disabled = true;
+        return;
+      }
 
-  content.appendChild(roomDetails);
-  content.appendChild(booking);
+      let total = cart.reduce((sum, item) => sum + item.total, 0);
+      cartTotalAmount.textContent = total.toFixed(2);
 
-  right.appendChild(content);
-  card.appendChild(left);
-  card.appendChild(right);
-  container.appendChild(card);
-});
+      cartItemsList.innerHTML = '';
+      cart.forEach(item => {
+        const cartItemDiv = document.createElement('div');
+        cartItemDiv.className = 'bg-gray-100 p-2 rounded text-sm';
+        cartItemDiv.innerHTML = `
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="font-semibold">${item.room.name}</p>
+              <p class="text-xs text-gray-600">${item.nights} nights × $${item.room.price}</p>
+            </div>
+            <div class="text-right">
+              <p class="font-bold text-amber-600">$${item.total}</p>
+              <button onclick="removeFromCart(${item.room.id})" class="text-red-500 text-xs hover:text-red-700">Remove</button>
+            </div>
+          </div>
+        `;
+        cartItemsList.appendChild(cartItemDiv);
+      });
 
-button.onclick = () => {
-  const person = document.getElementById("person")?.value;
-  const checkIn = document.getElementById("check-in")?.value;
-  const checkOut = document.getElementById("check-out")?.value;
-  const email = document.getElementById("email")?.value;
+      checkoutButton.disabled = false;
+    }
 
-  if (!person || !checkIn || !checkOut || !email) {
-    alert("Please fill in all booking details before selecting a room.");
-    return;
-  }
+    function scrollToCart() {
+      document.getElementById('cartSummary').scrollIntoView({ behavior: 'smooth' });
+    }
 
-  const bookingInfo = {
-    room,
-    person,
-    checkIn,
-    checkOut,
-    email
-  };
+    function openCheckoutModal() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
 
-  localStorage.setItem("selectedBooking", JSON.stringify(bookingInfo));
-  window.location.href = "checkout.html";
-};
+      document.getElementById('checkoutModal').classList.remove('hidden');
+      
+      // Populate checkout details
+      const checkoutRoomsList = document.getElementById('checkoutRoomsList');
+      const checkoutTotal = document.getElementById('checkoutTotal');
+      
+      checkoutRoomsList.innerHTML = '';
+      let total = 0;
 
-function renderBookingSummary() {
-  const container = document.getElementById("yourBookingSummary");
-  const savedBooking = JSON.parse(localStorage.getItem("selectedBooking"));
+      cart.forEach(item => {
+        total += item.total;
+        const roomDiv = document.createElement('div');
+        roomDiv.className = 'border p-4 rounded bg-white shadow';
+        roomDiv.innerHTML = `
+          <div class="flex flex-col md:flex-row gap-4">
+            <img src="${item.room.images[0]}" alt="${item.room.name}" class="w-full md:w-[300px] h-[200px] object-cover rounded">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800">${item.room.name}</h3>
+              <p class="text-gray-600">${item.room.bed}</p>
+              <p class="text-gray-600">${item.room.breakfast}</p>
+              <p class="text-gray-600 mt-2">${item.room.description}</p>
+              <p class="text-amber-600 text-lg font-bold mt-4">$${item.room.price}.00 per night</p>
+              <p class="mt-2 text-gray-700"><strong>Check-in:</strong> ${item.checkIn}</p>
+              <p class="text-gray-700"><strong>Check-out:</strong> ${item.checkOut}</p>
+              <p class="text-gray-700"><strong>Guests:</strong> ${item.person}</p>
+              <p class="text-gray-700"><strong>Email:</strong> ${item.email}</p>
+              <p class="text-gray-700"><strong>Nights:</strong> ${item.nights}</p>
+              <p class="text-xl font-bold text-amber-600 mt-2">Total: $${item.total}</p>
+            </div>
+          </div>
+        `;
+        checkoutRoomsList.appendChild(roomDiv);
+      });
 
-  if (!savedBooking) {
-    container.innerHTML = "<p class='text-gray-500'>No current booking selected.</p>";
-    return;
-  }
+      checkoutTotal.textContent = total.toFixed(2);
 
-  const { room, person, checkIn, checkOut, email } = savedBooking;
+      // Pre-fill email from cart
+      if (cart.length > 0) {
+        document.getElementById('customerEmail').value = cart[0].email;
+      }
+    }
 
-  container.innerHTML = `
-    <h2 class="text-2xl font-bold mb-4 text-gray-700">Your Booking</h2>
-    <div class="flex flex-col md:flex-row gap-4">
-      <img src="${room.images[0]}" alt="${room.name}" class="w-full md:w-[300px] h-[200px] object-cover rounded">
-      <div>
-        <h3 class="text-xl font-semibold text-gray-800">${room.name}</h3>
-        <p class="text-gray-600">${room.bed}</p>
-        <p class="text-gray-600">${room.breakfast}</p>
-        <p class="text-gray-600 mt-2">${room.description}</p>
-        <p class="text-amber-600 text-lg font-bold mt-4">₱${room.price}.00 per night</p>
-        <p class="mt-2 text-gray-700"><strong>Check-in:</strong> ${checkIn}</p>
-        <p class="text-gray-700"><strong>Check-out:</strong> ${checkOut}</p>
-        <p class="text-gray-700"><strong>Guests:</strong> ${person}</p>
-        <p class="text-gray-700"><strong>Email:</strong> ${email}</p>
-      </div>
-    </div>
-  `;
-}
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.add('hidden');
+    }
 
-// Call it on page load:
-window.addEventListener("DOMContentLoaded", renderBookingSummary);
+    function confirmBooking() {
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const customerEmail = document.getElementById('customerEmail').value;
+      const phone = document.getElementById('phone').value;
 
+      if (!firstName || !lastName || !customerEmail || !phone) {
+        alert("Please fill in all customer information fields.");
+        return;
+      }
 
+      const bookingData = {
+        customer: { firstName, lastName, email: customerEmail, phone },
+        rooms: cart,
+        total: cart.reduce((sum, item) => sum + item.total, 0),
+        bookingDate: new Date().toISOString()
+      };
 
+      // In a real app, you'd send this to your backend
+      console.log('Booking confirmed:', bookingData);
+
+      // Clear cart and close modal
+      cart = [];
+      updateCartDisplay();
+      closeCheckoutModal();
+
+      alert(`Booking confirmed! Total: $${bookingData.total.toFixed(2)}\nConfirmation details have been sent to ${customerEmail}`);
+    }
+
+    // Gallery functions
     function openGallery(images) {
       currentImages = images;
       currentIndex = 0;
@@ -379,6 +542,9 @@ window.addEventListener("DOMContentLoaded", renderBookingSummary);
       currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
       modalImg.src = currentImages[currentIndex];
     }
+
+    // Initialize
+    updateCartDisplay();
   </script>
 </body>
 </html>
