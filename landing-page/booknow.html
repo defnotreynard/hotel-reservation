@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Now</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="text-2xl p-1 bg-white text-gray-500 relative z-10">
+    <div class="flex justify-between items-center p-2">
+      <div class="md:ml-[5%] uppercase text-gray-700 font-bold">Logo</div>
+      <ul class="flex flex-wrap gap-6 md:space-x-20 px-4 md:px-[5%]">
+        <li><a href="home.html" id="home" class="hover:text-gray-700 nav-link">Home</a></li>
+        <li><a href="about.html" id="about" class="hover:text-gray-700 nav-link">About</a></li>
+        <li><a href="rooms.html" id="rooms" class="hover:text-gray-700 nav-link">Rooms</a></li>
+        <li><a href="contact.html" id="contact" class="hover:text-gray-700 nav-link">Contact</a></li>
+        <li>
+          <button class="bg-[#FFD23E] text-xl text-white px-5 rounded p-2">
+            <a href="booknow.html">Book Now</a>
+          </button>
+        </li>
+        
+      </ul>
+    </div>
+    <style>
+      .active {
+        border-bottom: 2px solid #FFD23E;
+        padding-bottom: 5px;
+        color: orange;
+      }
+    </style>
+    <script>
+      const currentPage = window.location.pathname.split("/").pop();
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+          link.classList.add("active");
+        }
+      });
+    </script>
+  </nav>
+
+  <!-- Booking -->
+  <div class="flex items-center justify-between">
+    <div class="relative z-20 md:mt-[2%] md:flex md:items-center md:ml-5 md:-mt-[3%] md:mb-[2%]">
+      <div class="md:flex md:gap-10 md:flex-wrap bg-white p-6 grid grid-cols-2 gap-2 border ">
+        <div>
+          <label for="person" class="block text-gray-500 font-semibold">Person</label>
+          <select id="person" class="border p-2 rounded w-40">
+            <option value="">Select Person</option>
+            <option value="1">1 Person</option>
+            <option value="2">2 People</option>
+            <option value="3">3 People</option>
+            <option value="4">4 People</option>
+          </select>
+        </div>
+        <div>
+          <label for="check-in" class="block text-gray-500 font-semibold">Check-in</label>
+          <input type="date" id="check-in" class="border p-2 rounded w-48">
+        </div>
+        <div>
+          <label for="check-out" class="block text-gray-500 font-semibold">Check-out</label>
+          <input type="date" id="check-out" class="border p-2 rounded md:w-48">
+        </div>
+        <div>
+          <label for="email" class="block text-gray-500 font-semibold">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" class="border p-2 rounded md:w-60">
+        </div>
+      </div>
+    </div>
+
+    <div id="cartSummary" class="mr-[1%] absolute right-[-1%] top-[37%] border-2 p-10 w-[30%]">
+      <p class="text-sm text-gray-600 mb-2">Order details</p>
+      <h1 class="text-gray-500 text-xl font-semibold">Your Cart: <span id="cartItemCount">0</span> Item</h1>
+      <h1 class="text-gray-600 text-xl font-semibold">Total $ <span id="cartTotalAmount">0.00</span></h1>
+      
+      <!-- Cart Items List -->
+      <div id="cartItemsList" class="mt-4 space-y-2 max-h-40 overflow-y-auto"></div>
+      
+      <!-- Checkout Button -->
+      <button id="checkoutButton" onclick="openCheckoutModal()" class="mt-4 w-full bg-[#FFD23E] text-white px-4 py-2 rounded hover:bg-yellow-500 transition-colors disabled:bg-gray-300" disabled>
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+  
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-4xl p-6 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeCheckoutModal()" class="absolute top-3 right-3 text-2xl font-bold hover:text-gray-700">&times;</button>
+      <h2 class="text-3xl font-bold mb-6 text-amber-400">Checkout Summary</h2>
+      
+      <!-- Customer Info Form -->
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold mb-4">Customer Information</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-gray-600 font-semibold mb-1">First Name</label>
+            <input type="text" id="firstName" class="w-full border rounded px-4 py-2" placeholder="John">
+          </div>
+          <div>
+            <label class="block text-gray-600 font-semibold mb-1">Last Name</label>
+            <input type="text" id="lastName" class="w-full border rounded px-4 py-2" placeholder="Doe">
+          </div>
+          <div>
+            <label class="block text-gray-600 font-semibold mb-1">Email</label>
+            <input type="email" id="customerEmail" class="w-full border rounded px-4 py-2" placeholder="john@example.com">
+          </div>
+          <div>
+            <label class="block text-gray-600 font-semibold mb-1">Phone</label>
+            <input type="tel" id="phone" class="w-full border rounded px-4 py-2" placeholder="+63 912 345 6789">
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Details -->
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold mb-4">Booking Details</h3>
+        <div id="checkoutRoomsList" class="space-y-4"></div>
+      </div>
+
+      <!-- Total -->
+      <div class="border-t pt-4 mb-6">
+        <div class="flex justify-between items-center text-xl font-bold">
+          <span>Total Amount:</span>
+          <span class="text-amber-500">$<span id="checkoutTotal">0.00</span></span>
+        </div>
+      </div>
+
+      <!-- Confirm Button -->
+      <button onclick="confirmBooking()" class="w-full bg-[#FFD23E] hover:bg-yellow-500 text-white py-3 rounded-lg font-semibold text-lg transition-colors">
+        Confirm Booking
+      </button>
+    </div>
+  </div>
+
+  <h1 class="text-3xl font-bold text-gray-500 ml-5">Select A Room</h1>
+  <div class="border-b-2 w-[69%] mt-2"></div>
+  <div id="roomsContainer" class="flex flex-col md:ml-5 gap-1 my-10"></div>
+
+  <!-- Modal -->
+  <div id="galleryModal" class="hidden fixed inset-0 bg-black bg-opacity-80 items-center justify-center z-50">
+    <button onclick="closeGallery()" class="absolute top-5 right-5 text-white text-3xl">&times;</button>
+    <button onclick="prevImage()" class="absolute left-5 text-white text-3xl">&#10094;</button>
+    <img id="modalImg" src="" class="h-[90%] w-[60%] rounded shadow-lg">
+    <button onclick="nextImage()" class="absolute right-5 text-white text-3xl">&#10095;</button>
+  </div>
+  
+  <script>
+    const rooms = [
+      {
+        id: 1,
+        name: "Presidential Suite",
+        bed: "1 King Bed",
+        breakfast: "Breakfast Included",
+        price: 400,
+        description: "38sqm, Working Desk, Flat Screen TV <br> Max: 2 Adults + 2 Children",
+        images: [
+              "https://img.freepik.com/free-photo/3d-rendering-beautiful-comtemporary-luxury-bedroom-suite-hotel-with-tv_105762-2071.jpg?w=740&q=80",
+              "https://img.freepik.com/free-photo/3d-rendering-luxury-bedroom-suite-hotel-with-tv-cabinet-wardrobe_105762-2292.jpg?w=740&q=80",
+              "https://media.istockphoto.com/id/1453121684/photo/modern-hotel-room-with-double-bed-night-tables-and-day-sofa-bed.jpg?s=612x612&w=0&k=20&c=zIw8iR0vtQa19VQlrohzQEt7x-izuwP6JBjJY_68--8="
+            ]
+      },
+      {
+        id: 2,
+        name: "Deluxe Room",
+        bed: "1 King Bed",
+        breakfast: "Breakfast Included",
+        price: 350,
+        description: "38sqm, Elegant Interior, Flat Screen TV <br> Max: 2 Adults + 2 Children",
+        images: [
+              "https://img.freepik.com/free-photo/3d-rendering-luxury-bedroom-suite-hotel-with-tv-cabinet-wardrobe_105762-2292.jpg?w=740&q=80",
+              "https://img.freepik.com/free-photo/luxury-bedroom-hotel_1150-10836.jpg?w=740&q=80",
+              "https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?w=740&q=80"
+            ]
+      },
+      {
+        id: 3,
+        name: "Premium Suite",
+        bed: "1 King Bed",
+        breakfast: "Breakfast Included",
+        price: 300,
+        description: "38sqm, Modern Design, Flat Screen TV <br> Max: 2 Adults + 2 Children",
+        images: [
+              "https://media.istockphoto.com/id/1453121684/photo/modern-hotel-room-with-double-bed-night-tables-and-day-sofa-bed.jpg?s=612x612&w=0&k=20&c=zIw8iR0vtQa19VQlrohzQEt7x-izuwP6JBjJY_68--8=",
+              "https://img.freepik.com/free-photo/luxury-bedroom-hotel_1150-10836.jpg?w=740&q=80",
+              "https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?w=740&q=80"
+            ]
+      },
+      {
+        id: 4,
+        name: "Standard Room",
+        bed: "1 Queen Bed",
+        breakfast: "Breakfast Included",
+        price: 250,
+        description: "27sqm, Cozy Room, Flat Screen TV <br> Max: 2 Adults",
+        images: [
+              "https://media.istockphoto.com/id/180451126/photo/hotel-standard-room.jpg?s=612x612&w=0&k=20&c=iu4nL4_zUf7AI6iL74zvpqHFg-0AFR3bdTP68WJf5_g=",
+              "https://img.freepik.com/free-photo/small-bedroom-design-with-double-bed-white-linen-window_1262-12487.jpg?w=740&q=80",
+              "https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?w=740&q=80"
+            ]
+      },
+      {
+        id: 5,
+        name: "Premier Room",
+        bed: "1 King Bed",
+        breakfast: "Breakfast Included",
+        price: 210,
+        description: "32sqm, City View, Flat Screen TV <br> Max: 2 Adults",
+        images: [
+              "https://img.freepik.com/premium-photo/interior-photography-modern-style-bedroom-with-large-bed_321831-670.jpg?w=740&q=80",
+              "https://img.freepik.com/free-photo/3d-rendering-beautiful-comtemporary-luxury-bedroom-suite-hotel-with-tv_105762-2071.jpg?w=740&q=80",
+              "https://media.istockphoto.com/id/180451126/photo/hotel-standard-room.jpg?s=612x612&w=0&k=20&c=iu4nL4_zUf7AI6iL74zvpqHFg-0AFR3bdTP68WJf5_g="
+            ]
+      },
+      {
+        id: 6,
+        name: "One-Bedroom Suite",
+        bed: "1 King Bed",
+        breakfast: "Breakfast Included",
+        price: 180,
+        description: "30sqm, Spacious with Living Area <br> Max: 2 Adults",
+        images: [
+              "https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?w=740&q=80",
+              "https://img.freepik.com/free-photo/small-bedroom-design-with-double-bed-white-linen-window_1262-12487.jpg?w=740&q=80",
+              "https://img.freepik.com/free-photo/3d-rendering-luxury-bedroom-suite-hotel-with-tv-cabinet-wardrobe_105762-2292.jpg?w=740&q=80"
+            ]
+      },
+      {
+        id: 7,
+        name: "Executive Room",
+        bed: "1 King Bed",
+        breakfast: "Breakfast Included",
+        price: 180,
+        description: "35sqm, Business Interior, Flat Screen TV <br> Max: 2 Adults",
+        images: [
+              "https://img.freepik.com/free-photo/luxury-bedroom-hotel_1150-10836.jpg?w=740&q=80",
+              "https://media.istockphoto.com/id/1453121684/photo/modern-hotel-room-with-double-bed-night-tables-and-day-sofa-bed.jpg?s=612x612&w=0&k=20&c=zIw8iR0vtQa19VQlrohzQEt7x-izuwP6JBjJY_68--8=",
+              "https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?w=740&q=80"
+            ]
+      },
+      {
+        id: 8,
+        name: "Economy Room",
+        bed: "1 Double Bed",
+        breakfast: "Breakfast Included",
+        price: 130,
+        description: "20sqm, Budget-Friendly, Flat Screen TV <br> Max: 2 Adults",
+        images: [
+              "https://img.freepik.com/free-photo/small-bedroom-design-with-double-bed-white-linen-window_1262-12487.jpg?w=740&q=80",
+              "https://img.freepik.com/free-photo/luxury-bedroom-hotel_1150-10836.jpg?w=740&q=80",
+              "https://img.freepik.com/premium-photo/interior-photography-modern-style-bedroom-with-large-bed_321831-670.jpg?w=740&q=80"
+            ]
+      }
+    ];
+
+    // Cart functionality
+    let cart = [];
+    
+    // Set minimum dates
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('check-in').setAttribute('min', today);
+    document.getElementById('check-out').setAttribute('min', today);
+
+    // Update checkout date when checkin changes
+    document.getElementById('check-in').addEventListener('change', function() {
+      const checkinDate = new Date(this.value);
+      checkinDate.setDate(checkinDate.getDate() + 1);
+      const minCheckout = checkinDate.toISOString().split('T')[0];
+      document.getElementById('check-out').setAttribute('min', minCheckout);
+    });
+
+    const container = document.getElementById("roomsContainer");
+    const modal = document.getElementById("galleryModal");
+    const modalImg = document.getElementById("modalImg");
+    let currentImages = [];
+    let currentIndex = 0;
+
+    rooms.forEach((room) => {
+      const card = document.createElement("div");
+      card.className = "relative flex flex-col md:flex-row w-full md:w-[69%] mt-4 rounded-lg overflow-hidden border";
+
+      // Left: image
+      const left = document.createElement("div");
+      left.className = "relative w-full md:w-1/2 h-[40vh] md:h-[30vh] overflow-hidden";
+
+      const img = document.createElement("img");
+      img.src = room.images[0]; 
+      img.className = "h-full w-full object-cover";
+      left.appendChild(img);
+
+      const overlay = document.createElement("img");
+      overlay.src = "images/image-gallery.png";
+      overlay.className = "absolute bottom-2 right-2 w-8 h-8 bg-white rounded-full p-1 shadow-md cursor-pointer";
+      overlay.onclick = () => openGallery(room.images);
+      left.appendChild(overlay);
+
+      // Right: info
+      const right = document.createElement("div");
+      right.className = "w-full md:w-[70%] p-6 flex flex-col justify-between";
+
+      // Create a div for the right content
+      const content = document.createElement("div");
+      content.className = "flex justify-between items-start mb-4";
+
+      // Room details
+      const roomDetails = document.createElement("div");
+      roomDetails.className = "w-[65%]";
+      roomDetails.innerHTML = `
+        <h1 class="text-2xl text-gray-500 font-bold">${room.name}</h1> 
+        <p class="text-gray-500">${room.bed}</p>
+        <p class="font-semibold text-gray-500">${room.breakfast}</p>
+        <p class="text-gray-600 leading-relaxed mt-4">${room.description}</p>
+      `;
+
+      // Price and button
+      const booking = document.createElement("div");
+      booking.className = "text-right flex flex-col items-start gap-2";
+
+      const price = document.createElement("h1");
+      price.className = "text-2xl font-bold text-amber-500";
+      price.innerText = `$${room.price}`;
+
+      const perNight = document.createElement("p");
+      perNight.className = "text-gray-500 text-sm";
+      perNight.innerText = "Per Night";
+
+      const button = document.createElement("button");
+      button.className = "bg-amber-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition";
+      button.innerText = "Add to Cart";
+
+      button.onclick = () => addToCart(room);
+
+      // Assemble booking section
+      booking.appendChild(price);
+      booking.appendChild(perNight);
+      booking.appendChild(button);
+
+      content.appendChild(roomDetails);
+      content.appendChild(booking);
+
+      right.appendChild(content);
+      card.appendChild(left);
+      card.appendChild(right);
+      container.appendChild(card);
+    });
+
+    function addToCart(room) {
+      const person = document.getElementById("person")?.value;
+      const checkIn = document.getElementById("check-in")?.value;
+      const checkOut = document.getElementById("check-out")?.value;
+      const email = document.getElementById("email")?.value;
+
+      if (!person || !checkIn || !checkOut || !email) {
+        alert("Please fill in all booking details before adding rooms to cart.");
+        return;
+      }
+
+      // Calculate nights
+      const checkinDate = new Date(checkIn);
+      const checkoutDate = new Date(checkOut);
+      const nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+
+      if (nights <= 0) {
+        alert("Check-out date must be after check-in date.");
+        return;
+      }
+
+      // Check if room already in cart
+      const existingItem = cart.find(item => item.room.id === room.id);
+      if (existingItem) {
+        alert("This room is already in your cart!");
+        return;
+      }
+
+      const cartItem = {
+        room,
+        person,
+        checkIn,
+        checkOut,
+        email,
+        nights,
+        total: room.price * nights
+      };
+
+      cart.push(cartItem);
+      updateCartDisplay();
+    }
+
+    function removeFromCart(roomId) {
+      cart = cart.filter(item => item.room.id !== roomId);
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const cartItemCount = document.getElementById('cartItemCount');
+      const cartTotalAmount = document.getElementById('cartTotalAmount');
+      const cartItemsList = document.getElementById('cartItemsList');
+      const checkoutButton = document.getElementById('checkoutButton');
+
+      cartItemCount.textContent = cart.length;
+      
+      if (cart.length === 0) {
+        cartTotalAmount.textContent = '0.00';
+        cartItemsList.innerHTML = '<p class="text-gray-500 text-sm">No items in cart</p>';
+        checkoutButton.disabled = true;
+        return;
+      }
+
+      let total = cart.reduce((sum, item) => sum + item.total, 0);
+      cartTotalAmount.textContent = total.toFixed(2);
+
+      cartItemsList.innerHTML = '';
+      cart.forEach(item => {
+        const cartItemDiv = document.createElement('div');
+        cartItemDiv.className = 'bg-gray-100 p-2 rounded text-sm';
+        cartItemDiv.innerHTML = `
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="font-semibold">${item.room.name}</p>
+              <p class="text-xs text-gray-600">${item.nights} nights × $${item.room.price}</p>
+            </div>
+            <div class="text-right">
+              <p class="font-bold text-amber-600">$${item.total}</p>
+              <button onclick="removeFromCart(${item.room.id})" class="text-red-500 text-xs hover:text-red-700">Remove</button>
+            </div>
+          </div>
+        `;
+        cartItemsList.appendChild(cartItemDiv);
+      });
+
+      checkoutButton.disabled = false;
+    }
+
+    function scrollToCart() {
+      document.getElementById('cartSummary').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function openCheckoutModal() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      document.getElementById('checkoutModal').classList.remove('hidden');
+      
+      // Populate checkout details
+      const checkoutRoomsList = document.getElementById('checkoutRoomsList');
+      const checkoutTotal = document.getElementById('checkoutTotal');
+      
+      checkoutRoomsList.innerHTML = '';
+      let total = 0;
+
+      cart.forEach(item => {
+        total += item.total;
+        const roomDiv = document.createElement('div');
+        roomDiv.className = 'border p-4 rounded bg-white shadow';
+        roomDiv.innerHTML = `
+          <div class="flex flex-col md:flex-row gap-4">
+            <img src="${item.room.images[0]}" alt="${item.room.name}" class="w-full md:w-[300px] h-[200px] object-cover rounded">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800">${item.room.name}</h3>
+              <p class="text-gray-600">${item.room.bed}</p>
+              <p class="text-gray-600">${item.room.breakfast}</p>
+              <p class="text-gray-600 mt-2">${item.room.description}</p>
+              <p class="text-amber-600 text-lg font-bold mt-4">$${item.room.price}.00 per night</p>
+              <p class="mt-2 text-gray-700"><strong>Check-in:</strong> ${item.checkIn}</p>
+              <p class="text-gray-700"><strong>Check-out:</strong> ${item.checkOut}</p>
+              <p class="text-gray-700"><strong>Guests:</strong> ${item.person}</p>
+              <p class="text-gray-700"><strong>Email:</strong> ${item.email}</p>
+              <p class="text-gray-700"><strong>Nights:</strong> ${item.nights}</p>
+              <p class="text-xl font-bold text-amber-600 mt-2">Total: $${item.total}</p>
+            </div>
+          </div>
+        `;
+        checkoutRoomsList.appendChild(roomDiv);
+      });
+
+      checkoutTotal.textContent = total.toFixed(2);
+
+      // Pre-fill email from cart
+      if (cart.length > 0) {
+        document.getElementById('customerEmail').value = cart[0].email;
+      }
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.add('hidden');
+    }
+
+    function confirmBooking() {
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const customerEmail = document.getElementById('customerEmail').value;
+      const phone = document.getElementById('phone').value;
+
+      if (!firstName || !lastName || !customerEmail || !phone) {
+        alert("Please fill in all customer information fields.");
+        return;
+      }
+
+      const bookingData = {
+        customer: { firstName, lastName, email: customerEmail, phone },
+        rooms: cart,
+        total: cart.reduce((sum, item) => sum + item.total, 0),
+        bookingDate: new Date().toISOString()
+      };
+
+      // In a real app, you'd send this to your backend
+      console.log('Booking confirmed:', bookingData);
+
+      // Clear cart and close modal
+      cart = [];
+      updateCartDisplay();
+      closeCheckoutModal();
+
+      alert(`Booking confirmed! Total: $${bookingData.total.toFixed(2)}\nConfirmation details have been sent to ${customerEmail}`);
+    }
+
+    // Gallery functions
+    function openGallery(images) {
+      currentImages = images;
+      currentIndex = 0;
+      modalImg.src = images[currentIndex];
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeGallery() {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % currentImages.length;
+      modalImg.src = currentImages[currentIndex];
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+      modalImg.src = currentImages[currentIndex];
+    }
+
+    // Initialize
+    updateCartDisplay();
+  </script>
+</body>
+</html>
