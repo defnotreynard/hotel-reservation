@@ -5,11 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LuxStay Hotel</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="font.css">
 </head>
 <body style="opacity:0; transition:opacity 0.6s ease; background:none;" class="h-screen w-full overflow-x-hidden" >
 
-<!-- Navbar -->
-<nav class="text-2xl p-1 bg-white text-gray-500 relative z-10">
+
+<!-- Hero -->
+<div class="relative h-[98vh]" id="heroSection">
+  <!-- Navbar -->
+<nav class="text-2xl p-1 bg-[rgba(255,255,255,0.89)] text-gray-500 relative z-10">
   <div class="flex justify-between items-center p-2">
     <div class="md:ml-[5%] uppercase text-gray-700 font-bold">Logo</div>
     <ul class="flex flex-wrap gap-6 md:space-x-20 px-4 md:px-[5%]">
@@ -50,11 +54,6 @@
     });
   </script>
 </nav>
-
-
-
-<!-- Hero -->
-<div class="relative h-[95vh]" id="heroSection">
   <!-- Background slideshow layers -->
   <div id="heroBg1" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-100"
        style="background-image: url('images/homeimg.jpg');"></div>
@@ -65,11 +64,11 @@
 
   <!-- Content -->
   <div class="relative z-10 flex justify-center items-center h-[80vh] text-center text-white">
-    <div>
+    <div id="titleFont">
       <h1 class="text-6xl font-bold mb-5">Stay Quietly</h1>
       <h1 class="text-6xl font-bold mb-4">With No Worries</h1>
       <p class="text-lg max-w-xl mx-auto">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quis adipisci voluptas neque recusandae odio, sit nesciunt praesentium veniam facilis, vel unde 
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quis adipisci voluptas neque recusandae odio, sit nesciunt praesentium veniam facilis.
       </p>
     </div>
   </div>
