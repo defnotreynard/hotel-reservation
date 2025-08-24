@@ -5,48 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book Now</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="font.css">
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="text-2xl p-1 bg-white text-gray-500 relative z-10">
-    <div class="flex justify-between items-center p-2">
-      <div class="md:ml-[5%] uppercase text-gray-700 font-bold">Logo</div>
-      <ul class="flex flex-wrap gap-6 md:space-x-20 px-4 md:px-[5%]">
-        <li><a href="home.html" id="home" class="hover:text-gray-700 nav-link">Home</a></li>
-        <li><a href="about.html" id="about" class="hover:text-gray-700 nav-link">About</a></li>
-        <li><a href="rooms.html" id="rooms" class="hover:text-gray-700 nav-link">Rooms</a></li>
-        <li><a href="contact.html" id="contact" class="hover:text-gray-700 nav-link">Contact</a></li>
-        <li>
-          <button class="bg-[#FFD23E] text-xl text-white px-5 rounded p-2">
-            <a href="booknow.html">Book Now</a>
-          </button>
-        </li>
-        
-      </ul>
-    </div>
-    <style>
-      .active {
-        border-bottom: 2px solid #FFD23E;
-        padding-bottom: 5px;
-        color: orange;
-      }
-    </style>
-    <script>
-      const currentPage = window.location.pathname.split("/").pop();
-      const navLinks = document.querySelectorAll('.nav-link');
-      navLinks.forEach(link => {
-        if (link.getAttribute("href") === currentPage) {
-          link.classList.add("active");
+
+  <div class="relative h-[75vh]  bg-cover bg-center" >
+    <nav class="text-2xl p-1 bg-[rgba(255,255,255,0.89)]  text-gray-500 relative z-50">
+      <div class="flex justify-between items-center p-2">
+        <div class="md:ml-[5%] uppercase text-gray-700 font-bold">Logo</div>
+        <ul class="flex flex-wrap gap-6 md:space-x-20 px-4 md:px-[5%]">
+          <li><a href="home.html" id="home" class="hover:text-gray-700 nav-link">Home</a></li>
+          <li><a href="about.html" id="about" class="hover:text-gray-700 nav-link">About</a></li>
+          <li><a href="rooms.html" id="rooms" class="hover:text-gray-700 nav-link">Rooms</a></li>
+          <li><a href="contact.html" id="contact" class="hover:text-gray-700 nav-link">Contact</a></li>
+          <li>
+            <button class="bg-[#FFD23E] text-xl text-white px-5 rounded p-2">
+             <a href="booknow.html">Book Now</a>
+            </button>
+          </li>
+        </ul>
+      </div>
+    
+      <style>
+        /* Style for active navigation item */
+        .active {
+          border-bottom: 2px solid #FFD23E; /* Yellow line */
+          padding-bottom: 5px;
+          color:orange;
         }
-      });
-    </script>
-  </nav>
+      </style>
+    
+      <script>
+        // Get the current page filename
+        const currentPage = window.location.pathname.split("/").pop();
+    
+        // Get all navigation links
+        const navLinks = document.querySelectorAll('.nav-link');
+    
+        // Loop through each nav link and add 'active' class to the current page
+        navLinks.forEach(link => {
+          // Check if the 'href' attribute matches the current page
+          if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");  // Add the 'active' class for the underline
+          }
+        });
+      </script>
+    </nav>
+    
+    
+    <!-- hero section -->
+    <section class="relative h-[77vh] mt-[-5%] w-full overflow-hidden">
+    <!-- Background Layers -->
+    <div id="heroBg1" class="absolute inset-0 bg-cover bg-center opacity-100 transition-opacity duration-1000"
+         style="background-image: url('images/homeimg.jpg');"></div>
+    <div id="heroBg2" class="absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-1000"></div>
+
+    <!-- Dark overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 flex justify-center items-center h-full text-center text-white">
+      <div>
+        <h1 id="titleFont" class="text-6xl font-bold mb-5">BOOK NOW</h1>
+      </div>
+    </div>
+  </section>
 
   <!-- Booking -->
-  <div class="flex items-center justify-between">
-    <div class="relative z-20 md:mt-[2%] md:flex md:items-center md:ml-5 md:-mt-[3%] md:mb-[2%]">
+  <div class="flex items-center justify-center ">
+    
+  
+    <div class="relative z-20 md:mt-[2%] md:flex shadow-md md:items-center md:ml-5 md:-mt-[3%] md:mb-[2%]">
+
       <div class="md:flex md:gap-10 md:flex-wrap bg-white p-6 grid grid-cols-2 gap-2 border ">
-        <div>
+        <div class=" bg-amber-400 rounded p-10">
+          <p class="text-white text-xl">Booking Details</p>
+        </div>
+
+        <div class="mt-2">
           <label for="person" class="block text-gray-500 font-semibold">Person</label>
           <select id="person" class="border p-2 rounded w-40">
             <option value="">Select Person</option>
@@ -56,34 +92,25 @@
             <option value="4">4 People</option>
           </select>
         </div>
-        <div>
+
+        <div class="mt-2">
           <label for="check-in" class="block text-gray-500 font-semibold">Check-in</label>
           <input type="date" id="check-in" class="border p-2 rounded w-48">
         </div>
-        <div>
+
+        <div class="mt-2">
           <label for="check-out" class="block text-gray-500 font-semibold">Check-out</label>
           <input type="date" id="check-out" class="border p-2 rounded md:w-48">
         </div>
-        <div>
+
+        <div class="mt-2">
           <label for="email" class="block text-gray-500 font-semibold">Email</label>
           <input type="email" id="email" placeholder="Enter your email" class="border p-2 rounded md:w-60">
         </div>
       </div>
     </div>
 
-    <div id="cartSummary" class="mr-[1%] absolute right-[-1%] top-[37%] border-2 p-10 w-[30%]">
-      <p class="text-sm text-gray-600 mb-2">Order details</p>
-      <h1 class="text-gray-500 text-xl font-semibold">Your Cart: <span id="cartItemCount">0</span> Item</h1>
-      <h1 class="text-gray-600 text-xl font-semibold">Total $ <span id="cartTotalAmount">0.00</span></h1>
-      
-      <!-- Cart Items List -->
-      <div id="cartItemsList" class="mt-4 space-y-2 max-h-40 overflow-y-auto"></div>
-      
-      <!-- Checkout Button -->
-      <button id="checkoutButton" onclick="openCheckoutModal()" class="mt-4 w-full bg-[#FFD23E] text-white px-4 py-2 rounded hover:bg-yellow-500 transition-colors disabled:bg-gray-300" disabled>
-        Proceed to Checkout
-      </button>
-    </div>
+
   </div>
   
   <!-- Checkout Modal -->
@@ -136,9 +163,30 @@
     </div>
   </div>
 
-  <h1 class="text-3xl font-bold text-gray-500 ml-5">Select A Room</h1>
-  <div class="border-b-2 w-[69%] mt-2"></div>
-  <div id="roomsContainer" class="flex flex-col md:ml-5 gap-1 my-10"></div>
+  <h1 id="titleFont" class="text-3xl font-bold text-gray-500 mt-5 ml-5">Select A Room</h1>
+  <div class="border-b-2 w-full mt-2"></div>
+
+<div class="flex justify-between">
+  <div class="w-full mt-[-2%]">
+    <div id="roomsContainer" class="flex flex-col w-full md:ml-5 gap-1 my-10"></div>
+  </div>
+
+  <div class="w-[30vw]">
+    <div id="cartSummary" class="mr-[2%] mt-2  border-2 p-10 w-[30vw]">
+      <p class="text-sm text-gray-600 mb-2">Order details</p>
+      <h1 class="text-gray-500 text-xl font-semibold">Your Cart: <span id="cartItemCount">0</span> Item</h1>
+      <h1 class="text-gray-600 text-xl font-semibold">Total $ <span id="cartTotalAmount">0.00</span></h1>
+      
+      <!-- Cart Items List -->
+      <div id="cartItemsList" class="mt-4 space-y-2 "></div>
+      
+      <!-- Checkout Button -->
+      <button id="checkoutButton" onclick="openCheckoutModal()" class="mt-4 w-full bg-[#FFD23E] text-white px-4 py-2 rounded hover:bg-yellow-500 transition-colors disabled:bg-gray-300" disabled>
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+</div>
 
   <!-- Modal -->
   <div id="galleryModal" class="hidden fixed inset-0 bg-black bg-opacity-80 items-center justify-center z-50">
@@ -148,7 +196,191 @@
     <button onclick="nextImage()" class="absolute right-5 text-white text-3xl">&#10095;</button>
   </div>
   
+
+  <footer class="bg-gray-800">
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div>
+          <h3
+            class="text-white text-sm font-semibold tracking-wider uppercase"
+          >
+            Company
+          </h3>
+          <ul class="mt-4 space-y-4">
+            <li>
+                <a href="#" class="text-gray-300 hover:text-white text-base"
+                  >Home</a
+                >
+              </li>
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white text-base"
+                >About</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white text-base"
+                >Rooms</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white text-base"
+                >Contact</a
+              >
+            </li>
+           
+          </ul>
+        </div>
+
+        <div>
+          <h3
+            class="text-white text-sm font-semibold tracking-wider uppercase"
+          >
+            Support
+          </h3>
+          <ul class="mt-4 space-y-4">
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white text-base"
+                >Help Center</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white text-base"
+                >Safety</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white text-base"
+                >Cancellation Policy</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white text-base"
+                >Report Issue</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3
+            class="text-white text-sm font-semibold tracking-wider uppercase"
+          >
+            Legal
+          </h3>
+          <ul class="mt-4 space-y-4">
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white text-base"
+                >Terms of Service</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white text-base"
+                >Privacy Policy</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white text-base"
+                >Cookie Policy</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white text-base"
+                >GDPR</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3
+            class="text-white text-sm font-semibold tracking-wider uppercase"
+          >
+            Contact Us
+          </h3>
+          <ul class="mt-4 space-y-4">
+            <li class="flex items-center">
+              <i class="fas fa-map-marker-alt text-gray-300 mr-2"></i>
+              <span class="text-gray-300"
+                >123 Luxury Street, Suite 100, New York, NY 10001</span
+              >
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-phone-alt text-gray-300 mr-2"></i>
+              <span class="text-gray-300">+1 (555) 123-4567</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-envelope text-gray-300 mr-2"></i>
+              <span class="text-gray-300">hello@luxstay.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        class="mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between"
+      >
+        <div class="flex space-x-6 md:order-2">
+          <a href="#" class="text-gray-400 hover:text-white">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+        <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
+          &copy; 2025 LuxStay. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+
   <script>
+
+const heroImages = [
+      "images/homeimg.jpg",
+      "images/view.jpg",
+      "images/pool.jpg"
+    ];
+
+    let currentHeroIndex = 0;
+    let showingFirst = true;
+
+    const bg1 = document.getElementById("heroBg1");
+    const bg2 = document.getElementById("heroBg2");
+
+    // Preload images
+    heroImages.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+
+    function changeHeroImage() {
+      currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
+
+      if (showingFirst) {
+        bg2.style.backgroundImage = `url('${heroImages[currentHeroIndex]}')`;
+        bg2.classList.replace("opacity-0", "opacity-100");
+        bg1.classList.replace("opacity-100", "opacity-0");
+      } else {
+        bg1.style.backgroundImage = `url('${heroImages[currentHeroIndex]}')`;
+        bg1.classList.replace("opacity-0", "opacity-100");
+        bg2.classList.replace("opacity-100", "opacity-0");
+      }
+
+      showingFirst = !showingFirst;
+    }
+
+    // Start slideshow
+    setInterval(changeHeroImage, 5000);
+
+
     const rooms = [
       {
         id: 1,
@@ -280,11 +512,11 @@
 
     rooms.forEach((room) => {
       const card = document.createElement("div");
-      card.className = "relative flex flex-col md:flex-row w-full md:w-[69%] mt-4 rounded-lg overflow-hidden border";
+      card.className = "relative flex flex-col md:flex-row w-[65vw] mt-2 rounded-lg overflow-hidden border";
 
       // Left: image
       const left = document.createElement("div");
-      left.className = "relative w-full md:w-1/2 h-[40vh] md:h-[30vh] overflow-hidden";
+      left.className = "relative w-[50vw] md:w-1/2 h-[40vh] md:h-[30vh] overflow-hidden";
 
       const img = document.createElement("img");
       img.src = room.images[0]; 
@@ -299,7 +531,7 @@
 
       // Right: info
       const right = document.createElement("div");
-      right.className = "w-full md:w-[70%] p-6 flex flex-col justify-between";
+      right.className = "w-full md:w-full p-6 flex flex-col justify-between";
 
       // Create a div for the right content
       const content = document.createElement("div");
@@ -309,7 +541,7 @@
       const roomDetails = document.createElement("div");
       roomDetails.className = "w-[65%]";
       roomDetails.innerHTML = `
-        <h1 class="text-2xl text-gray-500 font-bold">${room.name}</h1> 
+        <h1 id="roomFont" class="text-2xl text-gray-500 font-bold">${room.name}</h1> 
         <p class="text-gray-500">${room.bed}</p>
         <p class="font-semibold text-gray-500">${room.breakfast}</p>
         <p class="text-gray-600 leading-relaxed mt-4">${room.description}</p>
@@ -328,8 +560,8 @@
       perNight.innerText = "Per Night";
 
       const button = document.createElement("button");
-      button.className = "bg-amber-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition";
-      button.innerText = "Add to Cart";
+      button.className = "bg-amber-400 text-white px-6 py-2 rounded hover:bg-yellow-600 transition";
+      button.innerText = "Book Now";
 
       button.onclick = () => addToCart(room);
 
