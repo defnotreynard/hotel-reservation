@@ -51,9 +51,89 @@
           <a href="booknow.html">Book Now</a>
         </button>
       </li>
+      <!-- Mobile Cart Button -->
+<button id="mobileCartBtn" class="min-[820px]:hidden text-gray-700 text-2xl mr-4">
+  🛒 <span id="mobileCartCount">0</span>
+</button>
+
     </ul>
   </div>
 </nav>
+
+<!-- Mobile Cart Popup -->
+<div id="mobileCartModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-lg w-11/12 max-w-md p-6 relative max-h-[80vh] overflow-y-auto">
+    <button onclick="closeMobileCart()" class="absolute top-2 right-3 text-2xl font-bold hover:text-gray-700">&times;</button>
+    <h2 class="text-xl font-bold mb-4 text-amber-400">Your Cart</h2>
+    
+    <div id="mobileCartItems" class="space-y-2"></div>
+
+    <div class="mt-4 flex justify-between font-bold text-lg">
+      <span>Total:</span>
+      <span>$<span id="mobileCartTotal">0.00</span></span>
+    </div>
+
+    <button onclick="openCheckoutModal()" class="mt-4 w-full bg-[#FFD23E] text-white py-2 rounded hover:bg-yellow-500 transition-colors" id="mobileCheckoutBtn" disabled>
+      Proceed to Checkout
+    </button>
+  </div>
+</div>
+
+
+<script>
+  function updateMobileCart() {
+  const mobileCartItems = document.getElementById('mobileCartItems');
+  const mobileCartTotal = document.getElementById('mobileCartTotal');
+  const mobileCartCount = document.getElementById('mobileCartCount');
+  const mobileCheckoutBtn = document.getElementById('mobileCheckoutBtn');
+
+  mobileCartCount.textContent = cart.length;
+
+  if (cart.length === 0) {
+    mobileCartItems.innerHTML = '<p class="text-gray-500 text-sm">No items in cart</p>';
+    mobileCartTotal.textContent = '0.00';
+    mobileCheckoutBtn.disabled = true;
+    return;
+  }
+
+  let total = 0;
+  mobileCartItems.innerHTML = '';
+  cart.forEach(item => {
+    total += item.total;
+    const div = document.createElement('div');
+    div.className = 'bg-gray-100 p-2 rounded text-sm flex justify-between items-start';
+    div.innerHTML = `
+      <div>
+        <p class="font-semibold">${item.room.name}</p>
+        <p class="text-xs text-gray-600">${item.nights} nights × $${item.room.price}</p>
+      </div>
+      <div class="text-right">
+        <p class="font-bold text-amber-600">$${item.total}</p>
+        <button onclick="removeFromCart(${item.room.id}); updateMobileCart();" class="text-red-500 text-xs hover:text-red-700">Remove</button>
+      </div>
+    `;
+    mobileCartItems.appendChild(div);
+  });
+
+  mobileCartTotal.textContent = total.toFixed(2);
+  mobileCheckoutBtn.disabled = false;
+}
+
+const mobileCartModal = document.getElementById('mobileCartModal');
+
+document.getElementById('mobileCartBtn').addEventListener('click', () => {
+  updateMobileCart();
+  mobileCartModal.classList.remove('hidden');
+  mobileCartModal.classList.add('flex');
+});
+
+function closeMobileCart() {
+  mobileCartModal.classList.add('hidden');
+  mobileCartModal.classList.remove('flex');
+}
+
+
+</script>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -229,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div id="roomsContainer" class="flex flex-col w-full md:ml-5 gap-1 my-10"></div>
   </div>
 
-  <div class="w-[30vw]">
+  <div class="w-[30vw] hidden md:block">
     <div id="cartSummary" class="mr-[2%] mt-2  border-2 p-10 w-[30vw]">
       <p class="text-sm text-gray-600 mb-2">Order details</p>
       <h1 class="text-gray-500 text-xl font-semibold">Your Cart: <span id="cartItemCount">0</span> Item</h1>
@@ -637,51 +717,65 @@ const heroImages = [
       container.appendChild(card);
     });
 
+    let isFirstTimeBooking = true;
+
     function addToCart(room) {
-      const person = document.getElementById("person")?.value;
-      const checkIn = document.getElementById("check-in")?.value;
-      const checkOut = document.getElementById("check-out")?.value;
-      const email = document.getElementById("email")?.value;
+  const person = document.getElementById("person")?.value;
+  const checkIn = document.getElementById("check-in")?.value;
+  const checkOut = document.getElementById("check-out")?.value;
+  const email = document.getElementById("email")?.value;
 
-      if (!person || !checkIn || !checkOut || !email) {
-        alert("Please fill in all booking details before adding rooms to cart.");
-        return;
-      }
+  if (!person || !checkIn || !checkOut || !email) {
+    alert("Please fill in all booking details before adding rooms to cart.");
+    return;
+  }
 
-      // Calculate nights
-      const checkinDate = new Date(checkIn);
-      const checkoutDate = new Date(checkOut);
-      const nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+  const checkinDate = new Date(checkIn);
+  const checkoutDate = new Date(checkOut);
+  const nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
 
-      if (nights <= 0) {
-        alert("Check-out date must be after check-in date.");
-        return;
-      }
+  if (nights <= 0) {
+    alert("Check-out date must be after check-in date.");
+    return;
+  }
 
-      // Check if room already in cart
-      const existingItem = cart.find(item => item.room.id === room.id);
-      if (existingItem) {
-        alert("This room is already in your cart!");
-        return;
-      }
+  const existingItem = cart.find(item => item.room.id === room.id);
+  if (existingItem) {
+    alert("This room is already in your cart!");
+    return;
+  }
 
-      const cartItem = {
-        room,
-        person,
-        checkIn,
-        checkOut,
-        email,
-        nights,
-        total: room.price * nights
-      };
+  const cartItem = {
+    room,
+    person,
+    checkIn,
+    checkOut,
+    email,
+    nights,
+    total: room.price * nights
+  };
 
-      cart.push(cartItem);
-      updateCartDisplay();
+  cart.push(cartItem);
+  updateCartDisplay();
+  updateMobileCart(); // if using mobile popup
+
+  // Automatically show the cart/modal the first time a room is added
+  if (isFirstTimeBooking) {
+    if (window.innerWidth < 820) {
+      // mobile
+      document.getElementById('mobileCartBtn').click();
+    } else {
+      // desktop (scroll to sidebar)
+      scrollToCart();
     }
+    isFirstTimeBooking = false;
+  }
+}
 
     function removeFromCart(roomId) {
       cart = cart.filter(item => item.room.id !== roomId);
       updateCartDisplay();
+      updateMobileCart(); 
     }
 
     function updateCartDisplay() {

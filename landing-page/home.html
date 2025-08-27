@@ -463,16 +463,16 @@
   rooms.forEach(room => {
     // Card wrapper responsive flex
     const card = document.createElement("div");
-    card.className = "relative flex flex-col md:flex-row w-full [@media(min-width:1000px)]:w-[90vw] [@media(min-width:1500px)]:w-[80vw] mt-2 rounded-lg overflow-hidden";
+    card.className = "relative flex flex-col md:flex-row w-full md:w-full [@media(min-width:1000px)]:w-[90vw] [@media(min-width:1500px)]:w-[80vw] mt-2 rounded-lg overflow-hidden";
 
 
     // Left Image
     const left = document.createElement("div");
-    left.className = "w-full [@media(min-width:900px)]:w-1/2";
+    left.className = "w-full h-[50vh] [@media(min-width:900px)]:w-1/2";
     const img = document.createElement("img");
     img.src = room.img;
     img.alt = room.name;
-    img.className = "h-[40vh] md:h-[50vh]  w-full object-cover";
+    img.className = "h-[50vh] md:h-[50vh]  w-full object-cover";
     left.appendChild(img);
 
     // Right Content
@@ -484,7 +484,7 @@
   p-6 
   h-[50%]          /* 50% height on mobile */
   sm:h-auto        /* auto height on sm and above */
-  [@media(min-width:900px)]:h-[40vh]   /* fixed height only at 900px+ */
+  [@media(min-width:900px)]:h-[50vh]   /* fixed height only at 900px+ */
   [@media(min-width:900px)]:mt-0       /* reset margin at 900px+ */
   [@media(min-width:900px)]:self-center
   relative 
