@@ -53,7 +53,14 @@
       </li>
       <!-- Mobile Cart Button -->
 <button id="mobileCartBtn" class="min-[820px]:hidden text-gray-700 text-2xl mr-4">
-  🛒 <span id="mobileCartCount">0</span>
+<div class="flex items-center gap-5">
+  <div>
+    <img src="images/shopping-cart.png" alt="cart" height="25" width="25"> 
+   </div>
+   <div>
+    <span id="mobileCartCount">0</span>
+   </div>
+</div>
 </button>
 
     </ul>
@@ -192,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     
     <!-- hero section -->
-    <section class="relative h-[77vh] mt-[-11%] md:mt-[-5%] w-full overflow-hidden">
+    <section class="relative h-[77vh] mt-[-14%] md:mt-[-5%] w-full overflow-hidden">
     <!-- Background Layers -->
     <div id="heroBg1" class="absolute inset-0 bg-cover bg-center opacity-100 transition-opacity duration-1000"
          style="background-image: url('images/homeimg.jpg');"></div>
@@ -214,38 +221,50 @@ document.addEventListener("DOMContentLoaded", () => {
     
   
     <div class="relative z-20 md:mt-[2%] md:flex shadow-md md:items-center md:ml-5 md:-mt-[3%] md:mb-[2%]">
+<div class="bg-white p-6 border grid grid-cols-1 gap-4 md:grid-cols-5">
 
-      <div class="md:flex md:gap-10 md:flex-wrap bg-white p-6 grid grid-cols-2 gap-2 border ">
-        <div class=" bg-amber-400 rounded p-10">
-          <p class="text-white text-xl">Booking Details</p>
-        </div>
+  <!-- Booking header -->
+  <div class="bg-amber-400 rounded p-4 md:p-6 flex items-center justify-center col-span-1 md:col-span-1">
+    <p class="text-white text-lg md:text-xl font-semibold">Booking Details</p>
+  </div>
 
-        <div class="mt-2">
-          <label for="person" class="block text-gray-500 font-semibold">Person</label>
-          <select id="person" class="border p-2 rounded w-40">
-            <option value="">Select Person</option>
-            <option value="1">1 Person</option>
-            <option value="2">2 People</option>
-            <option value="3">3 People</option>
-            <option value="4">4 People</option>
-          </select>
-        </div>
+  <!-- Person + Email (row 2 on mobile) -->
+  <div class="grid grid-cols-2 gap-4 col-span-1 md:col-span-2">
+    <!-- Person -->
+    <div>
+      <label for="person" class="block text-gray-500 font-semibold">Person</label>
+      <select id="person" class="border p-2 rounded w-full">
+        <option value="">Select Person</option>
+        <option value="1">1 Person</option>
+        <option value="2">2 People</option>
+        <option value="3">3 People</option>
+        <option value="4">4 People</option>
+      </select>
+    </div>
+    <!-- Email -->
+    <div>
+      <label for="email" class="block text-gray-500 font-semibold">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" class="border p-2 rounded w-full">
+    </div>
+  </div>
 
-        <div class="mt-2">
-          <label for="check-in" class="block text-gray-500 font-semibold">Check-in</label>
-          <input type="date" id="check-in" class="border p-2 rounded w-48">
-        </div>
+  <!-- Check-in + Check-out (row 3 on mobile) -->
+  <div class="grid grid-cols-2 gap-4 col-span-1 md:col-span-2">
+    <!-- Check-in -->
+    <div>
+      <label for="check-in" class="block text-gray-500 font-semibold">Check-in</label>
+      <input type="date" id="check-in" class="border p-2 rounded w-full">
+    </div>
+    <!-- Check-out -->
+    <div>
+      <label for="check-out" class="block text-gray-500 font-semibold">Check-out</label>
+      <input type="date" id="check-out" class="border p-2 rounded w-full">
+    </div>
+  </div>
 
-        <div class="mt-2">
-          <label for="check-out" class="block text-gray-500 font-semibold">Check-out</label>
-          <input type="date" id="check-out" class="border p-2 rounded md:w-48">
-        </div>
+</div>
 
-        <div class="mt-2">
-          <label for="email" class="block text-gray-500 font-semibold">Email</label>
-          <input type="email" id="email" placeholder="Enter your email" class="border p-2 rounded md:w-60">
-        </div>
-      </div>
+      
     </div>
 
 
@@ -306,11 +325,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <div class="flex justify-between">
   <div class="w-full mt-[-2%]">
-    <div id="roomsContainer" class="flex flex-col w-full md:ml-5 gap-1 my-10"></div>
+    <div id="roomsContainer" class="flex flex-col w-full ml-0 md:ml-5 gap-1 my-10"></div>
   </div>
+  
 
   <div class="w-[30vw] hidden md:block">
-    <div id="cartSummary" class="mr-[2%] mt-2  border-2 p-10 w-[30vw]">
+    <div id="cartSummary" class="mr-[2%] md:mt-[6%]  border-2 p-10 w-[30vw]">
       <p class="text-sm text-gray-600 mb-2">Order details</p>
       <h1 class="text-gray-500 text-xl font-semibold">Your Cart: <span id="cartItemCount">0</span> Item</h1>
       <h1 class="text-gray-600 text-xl font-semibold">Total $ <span id="cartTotalAmount">0.00</span></h1>
@@ -650,11 +670,11 @@ const heroImages = [
 
     rooms.forEach((room) => {
       const card = document.createElement("div");
-      card.className = "relative flex flex-col md:flex-row w-[65vw] mt-2 rounded-lg overflow-hidden border";
+      card.className = "relative flex flex-col md:flex-row md:w-[65vw] mt-2 rounded-lg overflow-hidden border";
 
       // Left: image
       const left = document.createElement("div");
-      left.className = "relative w-[50vw] md:w-1/2 h-[40vh] md:h-[30vh] overflow-hidden";
+      left.className = "relative md:w-[50vw] md:w-1/2 h-[40vh] md:h-[30vh] overflow-hidden";
 
       const img = document.createElement("img");
       img.src = room.images[0]; 
