@@ -6,6 +6,22 @@
     <title>About</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="font.css">
+
+    <style>
+      .fade-in {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+      
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      
+        </style>
+
 </head>
 <body style="opacity:0; transition:opacity 0.6s ease; background:none;">
 
@@ -117,16 +133,27 @@ if(line1.classList.contains('rotate-45')) {
         <div class="absolute inset-0 bg-black bg-opacity-50"></div>
         <div class="relative z-10 flex justify-center items-center h-[80vh] text-center text-white">
           <div>
-            <h1 id="titleFont" class="text-6xl font-bold mb-5">ABOUT</h1>
+            <h1 id="titleFont" class="fade-in text-6xl font-bold mb-5">ABOUT</h1>
           </div>
         </div>
       </div>
 
 
-      <div class="px-20 py-20 text-lg text-center">
-        <p>Hotel Cebu is a 4-star hospitality property located in Mandaue City, Cebu. Opened last 2017, bai Hotel Cebu is an independent hotel. Nestled between the bustling cities of Mandaue and Cebu, it presents spectacular harbor and city views with ultra-modern amenities and facilities. A contemporary chic business hotel and culinary destination in one of the country’s top business and leisure destinations.  All 668 guestrooms and 8 restaurants are stylishly designed in contemporary hues that evoke an ambiance of modern luxury and spaciousness secured with a world-class access control system. Envisioned to enhance the beauty and transformation of the highly-urbanized cities of  
+      <div class="fade-in px-20 py-20 text-lg text-center">
+        <p>
+          Hotel Cebu is a 4-star hospitality property located in Mandaue City, Cebu. 
+          Opened last 2017, bai Hotel Cebu is an independent hotel. Nestled between 
+          the bustling cities of Mandaue and Cebu, it presents spectacular harbor 
+          and city views with ultra-modern amenities and facilities. A contemporary 
+          chic business hotel and culinary destination in one of the country’s top 
+          business and leisure destinations. All 668 guestrooms and 8 restaurants 
+          are stylishly designed in contemporary hues that evoke an ambiance of 
+          modern luxury and spaciousness secured with a world-class access control 
+          system. Envisioned to enhance the beauty and transformation of the 
+          highly-urbanized cities of Cebu.
         </p>
       </div>
+      
 
 
 
@@ -303,8 +330,9 @@ if(line1.classList.contains('rotate-45')) {
         const container = document.getElementById("roomsContainer");
       
         rooms.forEach((room, idx) => {
-  const card = document.createElement("div");
-  card.className = "flex flex-col md:flex-row w-full md:w-[80%] mb-10 overflow-hidden";
+          const card = document.createElement("div");
+card.className = "fade-in flex flex-col md:flex-row w-full md:w-[80%] mb-10 overflow-hidden";
+
 
   // IMAGE AREA
   const imageArea = document.createElement("div");
@@ -376,7 +404,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
       </script>
       
-      
+      <script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      } else {
+        entry.target.classList.remove("visible"); // remove if you want re-animate on scroll back
+      }
+    });
+  }, { threshold: 0.2 }); // trigger when 20% of the card is visible
+
+  // Observe all fade-in elements
+  document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+});
+
+</script>
       
 </body>
 </html>

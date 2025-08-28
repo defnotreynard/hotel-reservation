@@ -6,6 +6,22 @@
   <title>Book Now</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="font.css">
+
+  <style>
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    
+      </style>
+
 </head>
 <body>
 
@@ -22,7 +38,7 @@
       <li><a href="rooms.html" class="hover:text-gray-700 nav-link">Rooms</a></li>
       <li><a href="contact.html" class="hover:text-gray-700 nav-link">Contact</a></li>
       <li>
-        <button class="bg-[#FFD23E] text-xl sm:text-sm text-white px-5 rounded p-2">
+        <button class=" bg-[#FFD23E] text-xl sm:text-sm text-white px-5 rounded p-2">
           <a href="booknow.html">Book Now</a>
         </button>
       </li>
@@ -199,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     
     <!-- hero section -->
-    <section class="relative h-[77vh] mt-[-14%] md:mt-[-5%] w-full overflow-hidden">
+    <section class="relative h-[77vh] mt-[-14%] md:mt-[-7%] w-full overflow-hidden">
     <!-- Background Layers -->
     <div id="heroBg1" class="absolute inset-0 bg-cover bg-center opacity-100 transition-opacity duration-1000"
          style="background-image: url('images/homeimg.jpg');"></div>
@@ -211,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <!-- Hero Content -->
     <div class="relative z-10 flex justify-center items-center h-full text-center text-white">
       <div>
-        <h1 id="titleFont" class="text-6xl font-bold mb-5">BOOK NOW</h1>
+        <h1 id="titleFont" class="fade-in text-6xl font-bold mb-5">BOOK NOW</h1>
       </div>
     </div>
   </section>
@@ -950,5 +966,27 @@ const heroImages = [
     // Initialize
     updateCartDisplay();
   </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        } else {
+          entry.target.classList.remove("visible"); // 👈 fade out when leaving viewport
+        }
+      });
+    }, { threshold: 0.1 }); // triggers when 10% visible
+
+    
+     titleFont= document.getElementById("titleFont");   
+  
+    if (titleFont) {
+      observer.observe(titleFont);
+    }
+  });
+</script>
+
 </body>
 </html>
