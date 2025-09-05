@@ -6,62 +6,147 @@
     <title>Contact</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="font.css">
+
+    <style>
+      .fade-in {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+      
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      
+        </style>
+
 </head>
 <body  class="overflow-x-hidden h-screen w-full" style="opacity:0; transition:opacity 0.6s ease; background:none;">
 
   <div class="relative h-[75vh]  bg-cover bg-center" style="background-image: url('images/view.jpg');">
-    <nav class="text-2xl p-1 bg-[rgba(255,255,255,0.89)] text-gray-500 relative z-10">
-      <div class="flex justify-between items-center p-2">
-        <div class="md:ml-[5%] uppercase text-gray-700 font-bold">Logo</div>
-        <ul class="flex flex-wrap gap-6 md:space-x-20 px-4 md:px-[5%]">
-          <li><a href="home.html" id="home" class="hover:text-gray-700 nav-link">Home</a></li>
-          <li><a href="about.html" id="about" class="hover:text-gray-700 nav-link">About</a></li>
-          <li><a href="rooms.html" id="rooms" class="hover:text-gray-700 nav-link">Rooms</a></li>
-          <li><a href="contact.html" id="contact" class="hover:text-gray-700 nav-link">Contact</a></li>
-          <li>
-            <button class="bg-[#FFD23E] text-xl text-white px-5 rounded p-2">
-             <a href="booknow.html">Book Now</a>
-            </button>
-          </li>
-        </ul>
+<!-- Navbar -->
+<nav class="text-2xl p-1 bg-[rgba(255,255,255,0.89)] text-gray-500 relative z-50">
+  <div class="flex justify-between items-center p-2">
+    <div class="md:ml-[5%]  text-amber-500 font-bold">LuxStay</div>
+
+    <!-- Desktop Navigation -->
+    <ul class="hidden min-[820px]:flex flex-row text-[17px] gap-20 text-xl px-4 min-[820px]:px-[5%]">
+      <li><a href="home.html" class="nav-link">Home</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="rooms.html" class="nav-link">Rooms</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+      <li>
+        <button class="bg-[#FFD23E] text-xl sm:text-sm text-white px-5 rounded p-2">
+          <a href="booknow.html">Book Now</a>
+        </button>
+      </li>
+    </ul>
+
+    <!-- Mobile Hamburger -->
+    <button id="hamburgerBtn" class="flex min-[820px]:hidden mr-[5%] focus:outline-none">
+      <div class="space-y-2">
+        <span class="block w-8 h-0.5 bg-amber-500 transition-all duration-300" id="line1"></span>
+<span class="block w-8 h-0.5 bg-amber-500 transition-all duration-300" id="line2"></span>
+<span class="block w-8 h-0.5 bg-amber-500 transition-all duration-300" id="line3"></span>
       </div>
-    
-      <style>
-        /* Style for active navigation item */
-        .active {
-          border-bottom: 2px solid #FFD23E; /* Yellow line */
-          padding-bottom: 5px;
-          color:orange;
-        }
-      </style>
-    
-      <script>
-        // Get the current page filename
-        const currentPage = window.location.pathname.split("/").pop();
-    
-        // Get all navigation links
-        const navLinks = document.querySelectorAll('.nav-link');
-    
-        // Loop through each nav link and add 'active' class to the current page
-        navLinks.forEach(link => {
-          // Check if the 'href' attribute matches the current page
-          if (link.getAttribute("href") === currentPage) {
-            link.classList.add("active");  // Add the 'active' class for the underline
-          }
-        });
-      </script>
-    </nav>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" 
+       class="flex-col min-[820px]:hidden absolute z-[100] top-full left-0 w-full bg-[rgba(255,255,255,0.95)] backdrop-blur-sm transform -translate-y-full opacity-0 invisible transition-all duration-300">
+    <ul class="flex flex-col items-center py-8 space-y-6">
+      <li><a href="home.html" class="nav-link text-xl">Home</a></li>
+      <li><a href="about.html" class="nav-link text-xl">About</a></li>
+      <li><a href="rooms.html" class="nav-link text-xl">Rooms</a></li>
+      <li><a href="contact.html" class="nav-link text-xl">Contact</a></li>
+      <li>
+        <button class="bg-[#FFD23E] text-xl text-white px-6 py-3 rounded">
+          <a href="booknow.html">Book Now</a>
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Highlight active nav link (yellow text + underline)
+  const currentUrl = window.location.href;
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  navLinks.forEach(link => {
+    if(currentUrl.includes(link.getAttribute("href"))) {
+      link.classList.add("border-b-2", "border-yellow-500", "text-yellow-500");
+    }
+  });
+
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const line1 = document.getElementById('line1');
+const line2 = document.getElementById('line2');
+const line3 = document.getElementById('line3');
+
+hamburgerBtn.addEventListener('click', () => {
+// Toggle mobile menu
+mobileMenu.classList.toggle('-translate-y-full');
+mobileMenu.classList.toggle('opacity-0');
+mobileMenu.classList.toggle('invisible');
+
+// Toggle hamburger into X
+line1.classList.toggle('rotate-45');
+line1.classList.toggle('translate-y-2');
+line2.classList.toggle('opacity-0');
+line3.classList.toggle('-rotate-45');
+line3.classList.toggle('-translate-y-2');
+
+// Toggle color: amber normally, red when X
+if(line1.classList.contains('rotate-45')) {
+line1.classList.replace('bg-amber-500', 'bg-red-500');
+line3.classList.replace('bg-amber-500', 'bg-red-500');
+} else {
+line1.classList.replace('bg-red-500', 'bg-amber-500');
+line3.classList.replace('bg-red-500', 'bg-amber-500');
+}
+});
+  // Optional: Smooth fade on navigation
+  navLinks.forEach(link => {
+    link.addEventListener("click", function(e) {
+      e.preventDefault();
+      const href = this.getAttribute("href");
+      document.body.style.transition = "opacity 0.6s";
+      document.body.style.opacity = "0";
+      setTimeout(() => {
+        window.location.href = href;
+      }, 600);
+    });
+  });
+});
+</script>
+  
+  <style>
+  /* Highlight active page */
+  .active {
+    border-bottom: 2px solid #FFD23E;
+    padding-bottom: 5px;
+    color: orange !important;
+  }
+  </style>
+  
+
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
     <div class="relative z-10 flex justify-center items-center h-[80vh] text-center text-white">
       <div>
-        <h1 id="titleFont" class="text-6xl font-bold mb-5">CONTACT</h1>
+        <h1 id="titleFont" class="fade-in text-6xl font-bold mb-5">CONTACT</h1>
       </div>
     </div>
   </div>
 
 
 
-    <div class="md:flex   md:gap-20 justify-center p-20" >
+    <div id="contactcards" class="fade-in md:flex   md:gap-20 justify-center p-20" >
 
         <div class="bg-white shadow-lg p-10 mb-5 border-2 border-gray-200 rounded flex flex-col gap-5 justify-center text-center">
             <div>
@@ -101,7 +186,7 @@
     </div>
 
 
-    <div class="md:flex justify-center  md:gap-10 p-8">
+    <div id="sendmessage" class="fade-in md:flex justify-center  md:gap-10 p-8">
         <div class="w-full max-w-lg bg-white shadow-lg border rounded-2xl p-6">
           <form action="submit" method="post" class="space-y-4">
             <h1 class="text-2xl font-bold text-amber-500">Send Message</h1>
@@ -322,6 +407,32 @@
       });
     });
       </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        } else {
+          entry.target.classList.remove("visible"); // 👈 fade out when leaving viewport
+        }
+      });
+    }, { threshold: 0.1 }); // triggers when 10% visible
+
+    const titleFont = document.getElementById("titleFont");   
+    const contactcards = document.getElementById("contactcards");   
+    const sendmessage = document.getElementById("sendmessage");   
+
+
+
+    if (titleFont || contactcards || sendmessage) {
+      observer.observe(titleFont);
+      observer.observe(contactcards);
+      observer.observe(sendmessage);
+    }
+  });
+</script>
       
 </body>
 </html>

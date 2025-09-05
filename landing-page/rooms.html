@@ -6,55 +6,131 @@
     <title>Rooms</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="font.css">
+    
+    <style>
+      .fade-in {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+      
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      
+        </style>
+
 </head>
 <body style="opacity:0; transition:opacity 0.6s ease; background:none;">
 
   <div class="relative h-[75vh]  bg-cover bg-center" style="background-image: url('images/view.jpg');">
-    <nav class="text-2xl p-1 bg-[rgba(255,255,255,0.89)] text-gray-500 relative z-10">
+    <!-- Navbar -->
+    <nav class="text-2xl p-1 bg-[rgba(255,255,255,0.89)] text-gray-500 relative z-50">
       <div class="flex justify-between items-center p-2">
-        <div class="md:ml-[5%] uppercase text-gray-700 font-bold">Logo</div>
-        <ul class="flex flex-wrap gap-6 md:space-x-20 px-4 md:px-[5%]">
-          <li><a href="home.html" id="home" class="hover:text-gray-700 nav-link">Home</a></li>
-          <li><a href="about.html" id="about" class="hover:text-gray-700 nav-link">About</a></li>
-          <li><a href="rooms.html" id="rooms" class="hover:text-gray-700 nav-link">Rooms</a></li>
-          <li><a href="contact.html" id="contact" class="hover:text-gray-700 nav-link">Contact</a></li>
+        <div class="md:ml-[5%]  text-amber-500 font-bold">LuxStay</div>
+    
+        <!-- Desktop Navigation -->
+        <ul class="hidden min-[820px]:flex flex-row text-[17px] gap-20 text-xl px-4 min-[820px]:px-[5%]">
+          <li><a href="home.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="rooms.html" class="nav-link">Rooms</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
           <li>
-            <button class="bg-[#FFD23E] text-xl text-white px-5 rounded p-2">
-             <a href="booknow.html">Book Now</a>
+            <button class="bg-[#FFD23E] text-xl sm:text-sm text-white px-5 rounded p-2">
+              <a href="booknow.html">Book Now</a>
+            </button>
+          </li>
+        </ul>
+    
+        <!-- Mobile Hamburger -->
+        <button id="hamburgerBtn" class="flex min-[820px]:hidden mr-[5%] focus:outline-none">
+          <div class="space-y-2">
+            <span class="block w-8 h-0.5 bg-amber-500 transition-all duration-300" id="line1"></span>
+    <span class="block w-8 h-0.5 bg-amber-500 transition-all duration-300" id="line2"></span>
+    <span class="block w-8 h-0.5 bg-amber-500 transition-all duration-300" id="line3"></span>
+          </div>
+        </button>
+      </div>
+    
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" 
+           class="flex-col min-[820px]:hidden absolute z-[100] top-full left-0 w-full bg-[rgba(255,255,255,0.95)] backdrop-blur-sm transform -translate-y-full opacity-0 invisible transition-all duration-300">
+        <ul class="flex flex-col items-center py-8 space-y-6">
+          <li><a href="home.html" class="nav-link text-xl">Home</a></li>
+          <li><a href="about.html" class="nav-link text-xl">About</a></li>
+          <li><a href="rooms.html" class="nav-link text-xl">Rooms</a></li>
+          <li><a href="contact.html" class="nav-link text-xl">Contact</a></li>
+          <li>
+            <button class="bg-[#FFD23E] text-xl text-white px-6 py-3 rounded">
+              <a href="booknow.html">Book Now</a>
             </button>
           </li>
         </ul>
       </div>
-    
-      <style>
-        /* Style for active navigation item */
-        .active {
-          border-bottom: 2px solid #FFD23E; /* Yellow line */
-          padding-bottom: 5px;
-          color:orange;
-        }
-      </style>
-    
-      <script>
-        // Get the current page filename
-        const currentPage = window.location.pathname.split("/").pop();
-    
-        // Get all navigation links
-        const navLinks = document.querySelectorAll('.nav-link');
-    
-        // Loop through each nav link and add 'active' class to the current page
-        navLinks.forEach(link => {
-          // Check if the 'href' attribute matches the current page
-          if (link.getAttribute("href") === currentPage) {
-            link.classList.add("active");  // Add the 'active' class for the underline
-          }
-        });
-      </script>
     </nav>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Highlight active nav link (yellow text + underline)
+      const currentUrl = window.location.href;
+      const navLinks = document.querySelectorAll(".nav-link");
+    
+      navLinks.forEach(link => {
+        if(currentUrl.includes(link.getAttribute("href"))) {
+          link.classList.add("border-b-2", "border-yellow-500", "text-yellow-500");
+        }
+      });
+    
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const line1 = document.getElementById('line1');
+const line2 = document.getElementById('line2');
+const line3 = document.getElementById('line3');
+
+hamburgerBtn.addEventListener('click', () => {
+  // Toggle mobile menu
+  mobileMenu.classList.toggle('-translate-y-full');
+  mobileMenu.classList.toggle('opacity-0');
+  mobileMenu.classList.toggle('invisible');
+
+  // Toggle hamburger into X
+  line1.classList.toggle('rotate-45');
+  line1.classList.toggle('translate-y-2');
+  line2.classList.toggle('opacity-0');
+  line3.classList.toggle('-rotate-45');
+  line3.classList.toggle('-translate-y-2');
+
+  // Toggle color: amber normally, red when X
+  if(line1.classList.contains('rotate-45')) {
+    line1.classList.replace('bg-amber-500', 'bg-red-500');
+    line3.classList.replace('bg-amber-500', 'bg-red-500');
+  } else {
+    line1.classList.replace('bg-red-500', 'bg-amber-500');
+    line3.classList.replace('bg-red-500', 'bg-amber-500');
+  }
+});
+      // Optional: Smooth fade on navigation
+      navLinks.forEach(link => {
+        link.addEventListener("click", function(e) {
+          e.preventDefault();
+          const href = this.getAttribute("href");
+          document.body.style.transition = "opacity 0.6s";
+          document.body.style.opacity = "0";
+          setTimeout(() => {
+            window.location.href = href;
+          }, 600);
+        });
+      });
+    });
+    </script>
+    
+
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
     <div class="relative z-10 flex justify-center items-center h-[80vh] text-center text-white">
       <div>
-        <h1 id="titleFont" class="text-6xl font-bold mb-5">ROOMS</h1>
+        <h1 id="titleFont" class="fade-in text-6xl font-bold mb-5">ROOMS</h1>
       </div>
     </div>
   </div>
@@ -215,9 +291,9 @@
             rating: "4.8 ⭐",
             description: "Luxury suite with private pool, spa access, and city view.",
             images: [
-              "https://img.freepik.com/free-photo/3d-rendering-beautiful-comtemporary-luxury-bedroom-suite-hotel-with-tv_105762-2071.jpg?w=740&q=80",
-              "https://img.freepik.com/free-photo/3d-rendering-luxury-bedroom-suite-hotel-with-tv-cabinet-wardrobe_105762-2292.jpg?w=740&q=80",
-              "https://media.istockphoto.com/id/1453121684/photo/modern-hotel-room-with-double-bed-night-tables-and-day-sofa-bed.jpg?s=612x612&w=0&k=20&c=zIw8iR0vtQa19VQlrohzQEt7x-izuwP6JBjJY_68--8="
+              "https://img.freepik.com/premium-psd/realistic-bright-modern-double-bedroom-with-furniture_176382-444.jpg",
+              "https://img.freepik.com/free-photo/bangkok-thailand-august-12-2016-beautiful-luxury-bathroom_1203-2725.jpg?ga=GA1.1.1855808261.1732175708&semt=ais_incoming&w=740&q=80",
+              "https://img.freepik.com/free-photo/3d-rendering-beautiful-comtemporary-luxury-bedroom-suite-hotel-with-tv_105762-2071.jpg?ga=GA1.1.1855808261.1732175708&semt=ais_incoming&w=740&q=80"
             ],
             features: [
               { img: "images/user (2).png", text: "4 Persons" },
@@ -235,14 +311,14 @@
             description: "Spacious deluxe room with modern interior design and comfort.",
             images: [
               "https://img.freepik.com/free-photo/3d-rendering-luxury-bedroom-suite-hotel-with-tv-cabinet-wardrobe_105762-2292.jpg?w=740&q=80",
-              "https://img.freepik.com/free-photo/luxury-bedroom-hotel_1150-10836.jpg?w=740&q=80",
+              "https://img.freepik.com/premium-photo/luxurious-marble-shower-with-expansive-skylight-built-bench-unparalleled-relaxation_960396-869336.jpg?ga=GA1.1.1855808261.1732175708&semt=ais_incoming&w=740&q=80",
               "https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?w=740&q=80"
             ],
             features: [
               { img: "images/user (2).png", text: "4 Persons" },
               { img: "images/wi-fi.png", text: "Free WiFi" },
               { img: "images/bed.png", text: "King Size Bed" },
-              { img: "images/tape-measure.png", text: "38 Sqm" },
+              { img: "images/tape-measure.png", text: "34 Sqm" },
               { img: "images/shower.png", text: "Shower" },
               { img: "images/croissant.png", text: "Breakfast" }
             ]
@@ -253,15 +329,15 @@
             rating: "4.8 ⭐",
             description: "Luxury suite with private pool, spa access, and city view.",
             images: [
-              "https://media.istockphoto.com/id/1453121684/photo/modern-hotel-room-with-double-bed-night-tables-and-day-sofa-bed.jpg?s=612x612&w=0&k=20&c=zIw8iR0vtQa19VQlrohzQEt7x-izuwP6JBjJY_68--8=",
-              "https://img.freepik.com/free-photo/luxury-bedroom-hotel_1150-10836.jpg?w=740&q=80",
-              "https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?w=740&q=80"
+              "https://img.freepik.com/premium-photo/italy-tuscany-viareggio-tecnomar-velvet-100-luxury-yacht-master-bedroom_857279-11104.jpg?ga=GA1.1.1855808261.1732175708&semt=ais_incoming&w=740&q=80",
+              "https://img.freepik.com/premium-photo/view-bathroom-home_1048944-14365334.jpg",
+              "https://img.freepik.com/premium-photo/bedroom-with-large-mirror-large-mirror_1004054-29255.jpg?ga=GA1.1.1855808261.1732175708&semt=ais_incoming&w=740&q=80"
             ],
             features: [
               { img: "images/user (2).png", text: "4 Persons" },
               { img: "images/wi-fi.png", text: "Free WiFi" },
               { img: "images/bed.png", text: "King Size Bed" },
-              { img: "images/tape-measure.png", text: "38 Sqm" },
+              { img: "images/tape-measure.png", text: "30 Sqm" },
               { img: "images/shower.png", text: "Shower" },
               { img: "images/croissant.png", text: "Breakfast" }
             ]
@@ -272,15 +348,15 @@
             rating: "4.8 ⭐",
             description: "A cozy room with all essentials for a comfortable stay.",
             images: [
-              "https://media.istockphoto.com/id/180451126/photo/hotel-standard-room.jpg?s=612x612&w=0&k=20&c=iu4nL4_zUf7AI6iL74zvpqHFg-0AFR3bdTP68WJf5_g=",
-              "https://img.freepik.com/free-photo/small-bedroom-design-with-double-bed-white-linen-window_1262-12487.jpg?w=740&q=80",
-              "https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?w=740&q=80"
+              "https://img.freepik.com/premium-photo/comfort-hotel-bedroom-luxury-style_550617-25938.jpg?ga=GA1.1.1855808261.1732175708&semt=ais_incoming&w=740&q=80",
+              "https://img.freepik.com/premium-photo/room-rent_133748-9556.jpg?ga=GA1.1.1855808261.1732175708&semt=ais_incoming&w=740&q=80",
+              "https://img.freepik.com/premium-photo/interior-bathroom-home_1048944-21439890.jpg?ga=GA1.1.1855808261.1732175708&semt=ais_incoming&w=740&q=80"
             ],
             features: [
               { img: "images/user (2).png", text: "4 Persons" },
               { img: "images/wi-fi.png", text: "Free WiFi" },
               { img: "images/bed.png", text: "King Size Bed" },
-              { img: "images/tape-measure.png", text: "38 Sqm" },
+              { img: "images/tape-measure.png", text: "30 Sqm" },
               { img: "images/shower.png", text: "Shower" },
               { img: "images/croissant.png", text: "Breakfast" }
             ]
@@ -299,7 +375,7 @@
               { img: "images/user (2).png", text: "4 Persons" },
               { img: "images/wi-fi.png", text: "Free WiFi" },
               { img: "images/bed.png", text: "King Size Bed" },
-              { img: "images/tape-measure.png", text: "38 Sqm" },
+              { img: "images/tape-measure.png", text: "28 Sqm" },
               { img: "images/shower.png", text: "Shower" },
               { img: "images/croissant.png", text: "Breakfast" }
             ]
@@ -311,14 +387,14 @@
             description: "Perfect for couples, this suite offers privacy and comfort.",
             images: [
               "https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?w=740&q=80",
-              "https://img.freepik.com/free-photo/small-bedroom-design-with-double-bed-white-linen-window_1262-12487.jpg?w=740&q=80",
-              "https://img.freepik.com/free-photo/3d-rendering-luxury-bedroom-suite-hotel-with-tv-cabinet-wardrobe_105762-2292.jpg?w=740&q=80"
+              "https://img.freepik.com/premium-photo/modern-minimalist-bedroom-interior_1310085-71207.jpg?ga=GA1.1.1855808261.1732175708&semt=ais_incoming&w=740&q=80",
+              "https://img.freepik.com/premium-photo/sink-bathroom_1048944-7758907.jpg"
             ],
             features: [
               { img: "images/user (2).png", text: "4 Persons" },
               { img: "images/wi-fi.png", text: "Free WiFi" },
               { img: "images/bed.png", text: "King Size Bed" },
-              { img: "images/tape-measure.png", text: "38 Sqm" },
+              { img: "images/tape-measure.png", text: "28 Sqm" },
               { img: "images/shower.png", text: "Shower" },
               { img: "images/croissant.png", text: "Breakfast" }
             ]
@@ -337,7 +413,7 @@
               { img: "images/user (2).png", text: "4 Persons" },
               { img: "images/wi-fi.png", text: "Free WiFi" },
               { img: "images/bed.png", text: "King Size Bed" },
-              { img: "images/tape-measure.png", text: "38 Sqm" },
+              { img: "images/tape-measure.png", text: "27 Sqm" },
               { img: "images/shower.png", text: "Shower" },
               { img: "images/croissant.png", text: "Breakfast" }
             ]
@@ -350,13 +426,13 @@
             images: [
               "https://img.freepik.com/free-photo/small-bedroom-design-with-double-bed-white-linen-window_1262-12487.jpg?w=740&q=80",
               "https://img.freepik.com/free-photo/luxury-bedroom-hotel_1150-10836.jpg?w=740&q=80",
-              "https://img.freepik.com/premium-photo/interior-photography-modern-style-bedroom-with-large-bed_321831-670.jpg?w=740&q=80"
+              "https://img.freepik.com/free-photo/modern-style-small-bathroom-with-furnishings_23-2150836711.jpg?t=st=1756476881~exp=1756480481~hmac=fdc2b935334802045a1bf2455bef03d76f0317ebbd3489f54d863372121afe24"
             ],
             features: [
-              { img: "images/user (2).png", text: "4 Persons" },
+              { img: "images/user (2).png", text: "2 Persons" },
               { img: "images/wi-fi.png", text: "Free WiFi" },
               { img: "images/bed.png", text: "King Size Bed" },
-              { img: "images/tape-measure.png", text: "38 Sqm" },
+              { img: "images/tape-measure.png", text: "25 Sqm" },
               { img: "images/shower.png", text: "Shower" },
               { img: "images/croissant.png", text: "Breakfast" }
             ]
@@ -367,7 +443,8 @@
         
         rooms.forEach((room, index) => {
           const card = document.createElement("div");
-          card.className = "relative flex flex-col md:flex-row w-full md:w-[80%] mt-2 rounded-lg overflow-hidden md:h-[50vh] shadow-lg";
+card.className = "fade-in relative flex flex-col md:flex-row w-full md:w-[80%] mt-2 rounded-lg overflow-hidden md:h-[50vh] shadow-lg";
+
         
           const sliderImages = room.images;
         
@@ -447,7 +524,7 @@
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-6" id="features-${room.name.replace(/\s+/g, '')}"></div>
             <div class="flex flex-wrap gap-4 mt-6">
               <button class="bg-amber-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition">Book Now</button>
-              <button class="border border-yellow-500 text-yellow-500 px-6 py-2 rounded hover:bg-yellow-600 hover:text-white transition">See More</button>
+            
             </div>
           `;
         
@@ -480,6 +557,32 @@
         });
         </script>
         
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("visible");
+                } else {
+                  entry.target.classList.remove("visible"); // remove for re-trigger
+                }
+              });
+            }, { threshold: 0.1 }); // triggers when 10% visible
+          
+            // Observe each room card individually
+            document.querySelectorAll("#roomsContainer > div").forEach(card => {
+              observer.observe(card);
+            });
+          
+            // Observe the ROOMS heading
+            const title = document.getElementById("titleFont");
+            if (title) observer.observe(title);
+          
+  
+          });
+          </script>
+          
+          
       
 </body>
 </html>

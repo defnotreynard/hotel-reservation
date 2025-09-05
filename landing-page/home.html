@@ -6,117 +6,202 @@
   <title>LuxStay Hotel</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="font.css">
+  <style>
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+  </style>
+
 </head>
 <body style="opacity:0; transition:opacity 0.6s ease; background:none;" class="h-screen w-full overflow-x-hidden" >
 
 
-<!-- Hero -->
-<div class="relative h-[98vh]" id="heroSection">
-  <!-- Navbar -->
-<nav class="text-2xl p-1 bg-[rgba(255,255,255,0.89)] text-gray-500 relative z-10">
-  <div class="flex justify-between items-center p-2">
-    <div class="md:ml-[5%] uppercase text-gray-700 font-bold">Logo</div>
-    <ul class="flex flex-wrap gap-6 md:space-x-20 px-4 md:px-[5%]">
-      <li><a href="home.html" id="home" class="hover:text-gray-700 nav-link">Home</a></li>
-      <li><a href="about.html" id="about" class="hover:text-gray-700 nav-link">About</a></li>
-      <li><a href="rooms.html" id="rooms" class="hover:text-gray-700 nav-link">Rooms</a></li>
-      <li><a href="contact.html" id="contact" class="hover:text-gray-700 nav-link">Contact</a></li>
-      <li>
-        <button class="bg-[#FFD23E] text-xl text-white px-5 rounded p-2">
-         <a href="booknow.html">Book Now</a>
+  <div class="relative h-[98vh]" id="heroSection">
+    
+    <!-- Navbar -->
+    <nav class="text-2xl p-1 bg-[rgba(255,255,255,0.89)] text-gray-500 relative z-50">
+      <div class="flex justify-between items-center p-2">
+        <div class="md:ml-[5%]  text-amber-500 font-bold">LuxStay</div>
+        
+        <!-- Desktop Navigation -->
+        <ul class="hidden min-[820px]:flex flex-row text-[17px] gap-20 text-xl px-4 min-[820px]:px-[5%]">
+          <li><a href="home.html" class="hover:text-gray-700 nav-link">Home</a></li>
+          <li><a href="about.html" class="hover:text-gray-700 nav-link">About</a></li>
+          <li><a href="rooms.html" class="hover:text-gray-700 nav-link">Rooms</a></li>
+          <li><a href="contact.html" class="hover:text-gray-700 nav-link">Contact</a></li>
+          <li>
+            <button class="bg-[#FFD23E] text-xl sm:text-sm text-white px-5 rounded p-2">
+              <a href="booknow.html">Book Now</a>
+            </button>
+          </li>
+        </ul>
+        
+        <!-- Mobile Hamburger -->
+        <button id="hamburgerBtn" class="flex min-[820px]:hidden mr-[5%] focus:outline-none">
+          <div class="space-y-2">
+            <span class="block w-8 h-0.5 bg-amber-500 transition-all duration-300" id="line1"></span>
+            <span class="block w-8 h-0.5 bg-amber-500 transition-all duration-300" id="line2"></span>
+            <span class="block w-8 h-0.5 bg-amber-500 transition-all duration-300" id="line3"></span>
+          </div>
         </button>
-      </li>
-    </ul>
-  </div>
-
-  <style>
-    /* Style for active navigation item */
-    .active {
-      border-bottom: 2px solid #FFD23E; /* Yellow line */
-      padding-bottom: 5px;
-      color:orange;
-    }
-  </style>
-
-  <script>
-    // Get the current page filename
-    const currentPage = window.location.pathname.split("/").pop();
-
-    // Get all navigation links
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    // Loop through each nav link and add 'active' class to the current page
-    navLinks.forEach(link => {
-      // Check if the 'href' attribute matches the current page
-      if (link.getAttribute("href") === currentPage) {
-        link.classList.add("active");  // Add the 'active' class for the underline
-      }
-    });
-  </script>
-</nav>
-  <!-- Background slideshow layers -->
-  <div id="heroBg1" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-100"
-       style="background-image: url('images/homeimg.jpg');"></div>
-  <div id="heroBg2" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0"></div>
-
-  <!-- Dark overlay always on top -->
-  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-
-  <!-- Content -->
-  <div class="relative z-10 flex justify-center items-center h-[80vh] text-center text-white">
-    <div id="titleFont">
-      <h1 class="text-6xl font-bold mb-5">Stay Quietly</h1>
-      <h1 class="text-6xl font-bold mb-4">With No Worries</h1>
-      <p class="text-lg max-w-xl mx-auto">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quis adipisci voluptas neque recusandae odio, sit nesciunt praesentium veniam facilis.
-      </p>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" 
+           class="flex-col min-[820px]:hidden absolute z-[100] top-full left-0 w-full bg-[rgba(255,255,255,0.95)] backdrop-blur-sm transform -translate-y-full opacity-0 invisible transition-all duration-300">
+        <ul class="flex flex-col items-center py-8 space-y-6">
+          <li><a href="home.html" class="hover:text-gray-700 nav-link text-xl">Home</a></li>
+          <li><a href="about.html" class="hover:text-gray-700 nav-link text-xl">About</a></li>
+          <li><a href="rooms.html" class="hover:text-gray-700 nav-link text-xl">Rooms</a></li>
+          <li><a href="contact.html" class="hover:text-gray-700 nav-link text-xl">Contact</a></li>
+          <li>
+            <button class="bg-[#FFD23E] text-xl text-white px-6 py-3 rounded">
+              <a href="booknow.html">Book Now</a>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  
+    <!-- Background slideshow layers -->
+    <div id="heroBg1" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-100"
+         style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1470&q=80');"></div>
+    <div id="heroBg2" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0"></div>
+    
+    <!-- Dark overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    
+    <!-- Content -->
+    <div id="headtitle" class="fade-in relative z-10 flex justify-center items-center h-[80vh] text-center text-white">
+      <div id="titleFont ">
+        <h1 class="text-6xl font-bold mb-5">Stay Quietly</h1>
+        <h1 class="text-6xl font-bold mb-4">With No Worries</h1>
+        <p class="text-lg max-w-xl mx-auto">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quis adipisci voluptas neque recusandae odio, sit nesciunt praesentium veniam facilis.
+        </p>
+      </div>
     </div>
-  </div>
-
-  <script>
-    const heroImages = [
-      "images/homeimg.jpg",
-      "images/view.jpg",
-      "images/pool.jpg"
-    ];
-
-    let currentHeroIndex = 0;
-    let showingFirst = true;
-
-    const bg1 = document.getElementById("heroBg1");
-    const bg2 = document.getElementById("heroBg2");
-
-    function changeHeroImage() {
-      currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
-
-      if (showingFirst) {
-        bg2.style.backgroundImage = `url('${heroImages[currentHeroIndex]}')`;
-        bg2.classList.remove("opacity-0");
-        bg2.classList.add("opacity-100");
-
-        bg1.classList.remove("opacity-100");
-        bg1.classList.add("opacity-0");
-      } else {
-        bg1.style.backgroundImage = `url('${heroImages[currentHeroIndex]}')`;
-        bg1.classList.remove("opacity-0");
-        bg1.classList.add("opacity-100");
-
-        bg2.classList.remove("opacity-100");
-        bg2.classList.add("opacity-0");
+  
+    <style>
+      .active {
+        border-bottom: 2px solid #FFD23E;
+        padding-bottom: 5px;
+        color: orange;
+      }
+      .hamburger-open #line1 { transform: rotate(45deg) translate(6px, 6px); }
+      .hamburger-open #line2 { opacity: 0; }
+      .hamburger-open #line3 { transform: rotate(-45deg) translate(6px, -6px); }
+      .menu-open {
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
       }
 
-      showingFirst = !showingFirst;
-    }
+      .nav-link.active {
+    border-bottom: 2px solid #FFD23E;
+    color: #f48d39;
+  }
 
-    setInterval(changeHeroImage, 5000); // change every 5s
-  </script>
-</div>
+  /* Hamburger animations */
+  .hamburger-open #line1 { transform: rotate(45deg) translate(6px, 6px); background-color: red; }
+  .hamburger-open #line2 { opacity: 0; }
+  .hamburger-open #line3 { transform: rotate(-45deg) translate(6px, -6px); background-color: red; }
 
+  /* Mobile menu open */
+  .menu-open {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+    </style>
+  
+    <script>
+      // Hamburger functionality
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      let isMenuOpen = false;
+  
+      if (hamburgerBtn && mobileMenu) {
+        hamburgerBtn.addEventListener('click', function () {
+          isMenuOpen = !isMenuOpen;
+          if (isMenuOpen) {
+            hamburgerBtn.classList.add('hamburger-open');
+            mobileMenu.classList.add('menu-open');
+          } else {
+            hamburgerBtn.classList.remove('hamburger-open');
+            mobileMenu.classList.remove('menu-open');
+          }
+        });
+  
+        // Close menu when clicking link
+        const mobileNavLinks = mobileMenu.querySelectorAll('.nav-link');
+        mobileNavLinks.forEach(link => {
+          link.addEventListener('click', function () {
+            isMenuOpen = false;
+            hamburgerBtn.classList.remove('hamburger-open');
+            mobileMenu.classList.remove('menu-open');
+          });
+        });
+      }
+
+      
+  
+      // Active link highlighting
+      const currentPage = window.location.pathname.split("/").pop();
+      const allNavLinks = document.querySelectorAll('.nav-link');
+      allNavLinks.forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+          link.classList.add("active");
+        }
+      });
+  
+      // Hero slideshow
+      const heroImages = [
+        "images/homeimg.jpg",
+        "images/view.jpg",
+        "images/pool.jpg"
+      ];
+      let currentHeroIndex = 0;
+      let showingFirst = true;
+      const bg1 = document.getElementById("heroBg1");
+      const bg2 = document.getElementById("heroBg2");
+  
+      function changeHeroImage() {
+        currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
+        if (showingFirst) {
+          bg2.style.backgroundImage = `url('${heroImages[currentHeroIndex]}')`;
+          bg2.classList.remove("opacity-0");
+          bg2.classList.add("opacity-100");
+          bg1.classList.remove("opacity-100");
+          bg1.classList.add("opacity-0");
+        } else {
+          bg1.style.backgroundImage = `url('${heroImages[currentHeroIndex]}')`;
+          bg1.classList.remove("opacity-0");
+          bg1.classList.add("opacity-100");
+          bg2.classList.remove("opacity-100");
+          bg2.classList.add("opacity-0");
+        }
+        showingFirst = !showingFirst;
+      }
+      setInterval(changeHeroImage, 5000);
+    </script>
+  </div>
+  
+  
 
 
 
 <!-- Booking Form -->
-<div class="relative z-20 md:flex md:items-center md:justify-center md:-mt-[3%] md:mb-[2%]">
+<div id="bookform" class="fade-in relative z-20 md:flex md:items-center md:justify-center md:-mt-[3%] md:mb-[2%]">
   <div class="md:flex md:gap-10 md:flex-wrap bg-white p-6 grid grid-cols-2 gap-2 rounded-xl shadow-lg">
     
     <div>
@@ -157,26 +242,27 @@
 
 
 <!-- Rooms Container -->
-<div id="roomsContainer" class="flex flex-col  items-center gap-10 my-10"></div>
+<div id="roomsContainer" class="fade-in flex flex-col items-center gap-10 my-10"></div>
+
 
 <div class="flex justify-center mb-[5%] mt-[5%]">
-  <button class="bg-amber-400 text-white px-5 py-2 rounded">View All Rooms</button>
+  <button class="bg-amber-400 text-white px-5 py-2 rounded"><a href="rooms.html">View All Rooms</a></button>
 </div>
 
-<div class="bg-gray-100 p-10">
+<div id="facilities" class="fade-in bg-gray-100 md:p-10 mt-10 pb-[15%]">
   <div class="text-center text-amber-300 ">
-    <h1 class="text-4xl font-bold mb-2">Facilities & Services</h1>
+    <h1 class="text-4xl font-bold mb-2 pt-10">Facilities & Services</h1>
     <!-- Try changing w-1/4, w-1/3, w-1/2, or w-[250px] -->
     <hr class="w-1/5 mx-auto border-t-5 border-amber-400">
   </div>
   
   
-  <div id="facilitiesContainer" class="grid grid-cols-1 md:grid-cols-3 gap-8 px-10 my-10"></div>
+  <div id="facilitiesContainer" class=" flex flex-col   md:grid md:grid-cols-3 gap-8 px-10 cursor-pointer my-10"></div>
 </div>
 
 
-<div class="py-16">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div  class="py-16">
+  <div  id="guestsay" class="fade-in max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-12">
       <h2 class="text-3xl text-amber-400 font-extrabold tracking-tight sm:text-4xl">
         What Our Guests Say
@@ -393,34 +479,34 @@
   rooms.forEach(room => {
     // Card wrapper responsive flex
     const card = document.createElement("div");
-    card.className = "relative flex flex-col md:flex-row w-full md:w-[80%] mt-2 rounded-lg overflow-hidden";
+    card.className = "relative flex flex-col md:flex-row w-full md:w-full [@media(min-width:1000px)]:w-[90vw] [@media(min-width:1500px)]:w-[80vw] mt-2 rounded-lg overflow-hidden";
+
 
     // Left Image
     const left = document.createElement("div");
-    left.className = "w-full md:w-1/2";
+    left.className = "w-full h-[50vh] [@media(min-width:900px)]:w-1/2";
     const img = document.createElement("img");
     img.src = room.img;
     img.alt = room.name;
-    img.className = "h-[40vh] md:h-[50vh] w-full object-cover";
+    img.className = "h-[50vh] md:h-[50vh]  w-full object-cover";
     left.appendChild(img);
 
     // Right Content
     const right = document.createElement("div");
     right.className = `
   w-full 
-  md:w-1/2 
+  [@media(min-width:900px)]:w-1/2
   bg-gray-100 
-  
   p-6 
   h-[50%]          /* 50% height on mobile */
   sm:h-auto        /* auto height on sm and above */
-  md:h-[300px]     /* fixed height on md and above if needed */
-  md:mt-0          /* reset margin top */
-  md:self-center   /* vertically center next to image */
+  [@media(min-width:900px)]:h-[50vh]   /* fixed height only at 900px+ */
+  [@media(min-width:900px)]:mt-0       /* reset margin at 900px+ */
+  [@media(min-width:900px)]:self-center
   relative 
   rounded-lg 
   shadow-xl
-  md:left-[-2%]
+  [@media(min-width:900px)]:left-[-2%]
   border
 `;
 
@@ -486,7 +572,7 @@ const facilitiesContainer = document.getElementById("facilitiesContainer");
 
 facilities.map(facility => {
   const card = document.createElement("div");
-  card.className = "bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transition p-4";
+  card.className = "bg-white rounded-xl shadow-lg cursor-pointer overflow-hidden hover:scale-105 transition p-4";
 
   card.innerHTML = `
     <img src="${facility.img}" alt="${facility.title}" class="w-full h-56 object-cover rounded-lg">
@@ -567,6 +653,35 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        } else {
+          entry.target.classList.remove("visible"); // 👈 fade out when leaving viewport
+        }
+      });
+    }, { threshold: 0.1 }); // triggers when 10% visible
+
+    const roomsContainer = document.getElementById("roomsContainer");   
+    const facilities = document.getElementById("facilities");
+    const guestsay = document.getElementById("guestsay");
+    const headtitle = document.getElementById("headtitle");
+    const bookform = document.getElementById("bookform");
+
+    if (roomsContainer || facilities || guestsay || headtitle || bookform) {
+      observer.observe(roomsContainer);
+      observer.observe(facilities);
+      observer.observe(guestsay);
+      observer.observe(headtitle);
+      observer.observe(bookform);
+    }
+  });
+</script>
+
 
 </body>
 </html>
